@@ -2,15 +2,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
-#include "Element/gameElement.h"
+#include "Map/map.h"
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    QGraphicsView view(new QGraphicsScene);
-    Pacman* move = new Pacman();
-    view.scene()->addWidget(move);
+    QGraphicsView view;
+    Map* map = new Map("../Texture/map.txt", 50, 50, 20 ,20);
+    view.setScene(map);
     view.show();
-    move->setFocus();
     return app.exec();
 }

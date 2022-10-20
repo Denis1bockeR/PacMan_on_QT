@@ -8,9 +8,6 @@ Pacman::Pacman()
 	anim.setFileName("../Texture/startPacman.png");
 	anim.start();
 	setMovie(&anim);
-
-	x = pos().x();
-	y = pos().y();
 }
 
 void Pacman::keyPressEvent(QKeyEvent* event)
@@ -43,7 +40,7 @@ void Pacman::keyPressEvent(QKeyEvent* event)
 		break;
 	}
 }
-constexpr void Pacman::loadingAnim(const char* puth) noexcept
+void Pacman::loadingAnim(const char* puth) noexcept
 {
 	anim.stop();
 	anim.setFileName(puth);

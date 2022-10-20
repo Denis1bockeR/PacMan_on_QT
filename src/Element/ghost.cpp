@@ -1,7 +1,10 @@
 #include "gameElement.h"
 
-Ghost::Ghost(Color clr)
+Ghost::Ghost()
 	: GameElement(tGhost), status(Normal)
+{}
+
+void Ghost::setColor(Color clr) noexcept
 {
 	switch (clr)
 	{
@@ -18,12 +21,9 @@ Ghost::Ghost(Color clr)
 		setTexture("../Texture/pingGhost.png");
 		break;
 	}
-	
-	x = pos().x();
-	y = pos().y();
-}
 
-constexpr void Ghost::changeStatus(Status status) noexcept
+}
+void Ghost::changeStatus(Status status) noexcept
 {
 	this->status = status;
 
@@ -38,6 +38,7 @@ constexpr void Ghost::changeStatus(Status status) noexcept
 		type = tGhost;
 	}
 }
+
 void Ghost::setTexture(const char* puth) noexcept
 {
 	tex = QPixmap(puth);

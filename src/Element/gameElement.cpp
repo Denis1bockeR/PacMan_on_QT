@@ -2,8 +2,22 @@
 
 GameElement::GameElement(ElementType type)
 	: QLabel(), type(type), dir(Stop)
-{ };
+{
+	x = pos().x();
+	y = pos().y();
+};
+GameElement::GameElement()
+	: QLabel(), type(tBlank), dir(Stop)
+{
+	x = pos().x();
+	y = pos().y();
+}
 
+void GameElement::setPos()
+{
+	x = pos().x();
+	y = pos().y();
+}
 void GameElement::moveElement() noexcept
 {
 	switch (dir)
@@ -24,16 +38,4 @@ void GameElement::moveElement() noexcept
 		move(x, y);
 		break;
 	}
-}
-
-OtherElement::OtherElement(ElementType type)
-	: GameElement(type)
-{
-	x = pos().x();
-	y = pos().y();
-}
-void OtherElement::setTexture(const char* puth) noexcept
-{
-	tex = QPixmap(puth);
-	setPixmap(tex);
 }
