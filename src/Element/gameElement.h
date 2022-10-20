@@ -11,7 +11,7 @@ class GameElement : public QLabel
 	Q_OBJECT;
 
 public:
-	enum ElementType{ tBall, tWall, tGate, tPacman, tGhost, tWeakGhost, tPowerBall };
+	enum ElementType{ tBall, tWall, tTeleport, tPacman, tGhost, tWeakGhost, tPowerBall };
 	enum Dir { Up, Down, Right, Left, Stop };
 
 	GameElement(ElementType type);
@@ -29,13 +29,11 @@ class Pacman : public GameElement
 public:
 	explicit Pacman();
 	~Pacman() = default;
-
-	void startPacman() noexcept;
 private:
 	QMovie anim;
 private:
 	void keyPressEvent(QKeyEvent* event);
-	void loadingAnim(const char* puth) noexcept;
+	constexpr void loadingAnim(const char* puth) noexcept;
 };
 
 class Ghost : public GameElement
@@ -46,12 +44,25 @@ public:
 
 	explicit Ghost(Color clr);
 	~Ghost() = default;
+
+	constexpr void changeStatus(Status status) noexcept;
 private:
 	Color col;
 	Status status;
 	QPixmap tex;
 private:
 	void setTexture(const char* puth) noexcept;
+};
+
+class OtherElement : public GameElement
+{
+public:
+	explicit OtherElement(ElementType type);
+	~OtherElement() = default;
+
+	void setTexture(const char* puth) noexcept;
+private:
+	QPixmap tex;
 };
 
 #endif // !_GAMEELEMENT_H_

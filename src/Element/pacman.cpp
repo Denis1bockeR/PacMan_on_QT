@@ -43,16 +43,9 @@ void Pacman::keyPressEvent(QKeyEvent* event)
 		break;
 	}
 }
-void Pacman::loadingAnim(const char* puth) noexcept
+constexpr void Pacman::loadingAnim(const char* puth) noexcept
 {
 	anim.stop();
 	anim.setFileName(puth);
 	anim.start();
-}
-
-void Pacman::startPacman() noexcept
-{
-	QTimer* time = new QTimer();
-	connect(time, SIGNAL(timeout()), this, SLOT(moveElement()));
-	time->start(10);
 }

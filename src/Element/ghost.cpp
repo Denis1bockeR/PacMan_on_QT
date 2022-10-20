@@ -23,9 +23,23 @@ Ghost::Ghost(Color clr)
 	y = pos().y();
 }
 
+constexpr void Ghost::changeStatus(Status status) noexcept
+{
+	this->status = status;
+
+	if (status == Panic)
+	{
+		setPixmap(QPixmap("../Texture/weakGhost.png"));
+		type = tWeakGhost;
+	}
+	else
+	{
+		setPixmap(tex);
+		type = tGhost;
+	}
+}
 void Ghost::setTexture(const char* puth) noexcept
 {
 	tex = QPixmap(puth);
 	setPixmap(tex);
-	setFixedSize(20, 20);
 }

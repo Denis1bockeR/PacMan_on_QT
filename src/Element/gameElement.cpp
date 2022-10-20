@@ -25,3 +25,15 @@ void GameElement::moveElement() noexcept
 		break;
 	}
 }
+
+OtherElement::OtherElement(ElementType type)
+	: GameElement(type)
+{
+	x = pos().x();
+	y = pos().y();
+}
+void OtherElement::setTexture(const char* puth) noexcept
+{
+	tex = QPixmap(puth);
+	setPixmap(tex);
+}
