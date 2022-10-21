@@ -19,6 +19,12 @@ Map::Map(const char* puth, ushort h, ushort w)
 
 void Map::readMap(const char* puth)
 {
+    QPixmap wallPix("../Texture/wall.png");
+    QPixmap ballPix("../Texture/ball.png");
+    QPixmap powerBallPix("../Texture/powerBall.png");
+    QPixmap teleportPix("../Texture/teleport.png");
+    QPixmap blankPix;
+
     std::string str;
     std::ifstream files(puth);
     int mapPosY = 0, numOtherEl = 0, numGhost = 0;
@@ -27,60 +33,55 @@ void Map::readMap(const char* puth)
         int mapPosX;
         for (mapPosX = 0; mapPosX < str.length(); ++mapPosX)
         {
-            int tmp_y = (mapPosY + 1) * SIZE;
-            int tmp_x = (mapPosX + 1) * SIZE;
+            int tmp_y = mapPosY * SIZE;
+            int tmp_x = mapPosX * SIZE;
 
             switch (str[mapPosX])
             {
             case '1':
-                otherElement.emplace_back(GameElement::tWall);
+                otherElement.emplace_back(GameElement::tWall, wallPix);
+                addWidget(&otherElement[numOtherEl]);
                 otherElement[numOtherEl].move(tmp_x, tmp_y);
                 otherElement[numOtherEl].setPos();
-                otherElement[numOtherEl].setPixmap(QPixmap("../Texture/wall.png"));
-                addWidget(&otherElement[numOtherEl]);
                 ++numOtherEl;
                 break;
             case 'b':
-                otherElement.emplace_back(GameElement::tBall);
+                otherElement.emplace_back(GameElement::tBall, ballPix);
+                addWidget(&otherElement[numOtherEl]);
                 otherElement[numOtherEl].move(tmp_x, tmp_y);
                 otherElement[numOtherEl].setPos();
-                otherElement[numOtherEl].setPixmap(QPixmap("../Texture/ball.png"));
-                addWidget(&otherElement[numOtherEl]);
                 ++numOtherEl;
                 break;
             case '4':
-                otherElement.emplace_back(GameElement::tPowerBall);
+                otherElement.emplace_back(GameElement::tPowerBall, powerBallPix);
+                addWidget(&otherElement[numOtherEl]);
                 otherElement[numOtherEl].move(tmp_x, tmp_y);
                 otherElement[numOtherEl].setPos();
-                otherElement[numOtherEl].setPixmap(QPixmap("../Texture/powerBall.png"));
-                addWidget(&otherElement[numOtherEl]);
                 ++numOtherEl;
                 break;
             case '3':
-                otherElement.emplace_back(GameElement::tBlank);
+                otherElement.emplace_back(GameElement::tBlank, blankPix);
+                addWidget(&otherElement[numOtherEl]);
                 otherElement[numOtherEl].move(tmp_x, tmp_y);
                 otherElement[numOtherEl].setPos();
-                otherElement[numOtherEl].setPixmap(QPixmap());
-                addWidget(&otherElement[numOtherEl]);
                 ++numOtherEl;
                 break;
             case '2':
-                otherElement.emplace_back(GameElement::tTeleport);
+                otherElement.emplace_back(GameElement::tTeleport, teleportPix);
+                addWidget(&otherElement[numOtherEl]);
                 otherElement[numOtherEl].move(tmp_x, tmp_y);
                 otherElement[numOtherEl].setPos();
-                otherElement[numOtherEl].setPixmap(QPixmap("../Texture/teleport.png"));
-                addWidget(&otherElement[numOtherEl]);
                 ++numOtherEl;
                 break;
             case 'p':
+                addWidget(&pacman);
                 pacman.move(tmp_x, tmp_y);
                 pacman.setPos();
-                addWidget(&pacman);
                 break;
             case 'g':
+                addWidget(&ghost[numGhost]);
                 ghost[numGhost].move(tmp_x, tmp_y);
                 ghost[numGhost].setPos();
-                addWidget(&ghost[numGhost]);
                 ++numGhost;
                 break;
             }

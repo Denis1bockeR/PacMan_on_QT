@@ -3,11 +3,21 @@
 GameElement::GameElement(ElementType type)
 	: QLabel(), type(type), dir(Stop)
 {
+	setFixedSize(20, 20);
 	x = pos().x();
 	y = pos().y();
 };
+GameElement::GameElement(ElementType type, QPixmap pix)
+	: QLabel(), type(type), dir(Stop)
+{
+	setFixedSize(20, 20);
+	x = pos().x();
+	y = pos().y();
+	setPixmap(pix);
+}
 GameElement::GameElement(const GameElement& element)
 {
+	setFixedSize(20, 20);
 	this->x = element.x;
 	this->y = element.y;
 	this->dir = element.dir;

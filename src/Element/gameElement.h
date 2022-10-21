@@ -15,6 +15,7 @@ public:
 	enum Dir { Up, Down, Right, Left, Stop };
 
 	GameElement(ElementType type);
+	GameElement(ElementType type, QPixmap pix);
 	GameElement(const GameElement& element);
 	~GameElement() = default;
 
