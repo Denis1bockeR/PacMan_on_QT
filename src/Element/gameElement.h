@@ -5,17 +5,17 @@
 #include <QMovie>
 #include <QKeyEvent>
 #include <QPixmap>
-#include <QPoint>
 
 class GameElement : public QLabel
 {
 	Q_OBJECT;
 
 public:
-	enum ElementType{ tBall, tWall, tTeleport, tBlank, tPacman, tGhost, tWeakGhost, tPowerBall };
+	enum ElementType{ tPacman, tGhost, tWeakGhost, tBall, tPowerBall, tWall, tTeleport, tBlank };
 	enum Dir { Up, Down, Right, Left, Stop };
 
 	GameElement(ElementType type);
+	GameElement(const GameElement& element);
 	~GameElement() = default;
 
 	void setPos();
@@ -42,7 +42,7 @@ private:
 class Ghost : public GameElement
 {
 public:
-	enum Color { Red, Yellow, Pink, Green };
+	enum Color { Red, Orange, Pink, Green };
 	enum Status { Normal, Panic };
 
 	explicit Ghost();

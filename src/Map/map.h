@@ -12,11 +12,10 @@
 class Map : public QGraphicsScene
 {
 public:
-	Map(const char* puth, int x, int y, ushort h, ushort w);
+	Map(const char* puth, ushort h, ushort w);
 	~Map() = default;
 private:
 	ushort weight, height;
-	int x, y;
 
 	std::vector<GameElement> otherElement;
 	Pacman pacman;

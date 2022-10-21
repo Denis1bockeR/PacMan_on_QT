@@ -14,11 +14,11 @@ void Ghost::setColor(Color clr) noexcept
 	case Ghost::Red:
 		setTexture("../Texture/redGhost.png");
 		break;
-	case Ghost::Yellow:
-		setTexture("../Texture/yellowGhost.png");
+	case Ghost::Orange:
+		setTexture("../Texture/orangeGhost.png");
 		break;
 	case Ghost::Pink:
-		setTexture("../Texture/pingGhost.png");
+		setTexture("../Texture/pinkGhost.png");
 		break;
 	}
 

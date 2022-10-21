@@ -6,11 +6,12 @@ GameElement::GameElement(ElementType type)
 	x = pos().x();
 	y = pos().y();
 };
-GameElement::GameElement()
-	: QLabel(), type(tBlank), dir(Stop)
+GameElement::GameElement(const GameElement& element)
 {
-	x = pos().x();
-	y = pos().y();
+	this->x = element.x;
+	this->y = element.y;
+	this->dir = element.dir;
+	this->type = element.type;
 }
 
 void GameElement::setPos()
