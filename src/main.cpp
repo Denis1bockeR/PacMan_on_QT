@@ -10,7 +10,6 @@ int main(int argc, char* argv[])
     QGraphicsView view;
     Map* map = new Map("../Texture/map.txt", 20 ,29);
     view.setScene(map);
-    /*view.setFixedSize(QSize(31 * SIZE, 25 * SIZE));*/
     view.setBackgroundBrush(QBrush(Qt::black));
     view.show();
     return app.exec();

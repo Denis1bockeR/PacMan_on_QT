@@ -4,25 +4,7 @@ GameElement::GameElement(ElementType type)
 	: QLabel(), type(type), dir(Stop)
 {
 	setFixedSize(20, 20);
-	x = pos().x();
-	y = pos().y();
 };
-GameElement::GameElement(ElementType type, QPixmap pix)
-	: QLabel(), type(type), dir(Stop)
-{
-	setFixedSize(20, 20);
-	x = pos().x();
-	y = pos().y();
-	setPixmap(pix);
-}
-GameElement::GameElement(const GameElement& element)
-{
-	setFixedSize(20, 20);
-	this->x = element.x;
-	this->y = element.y;
-	this->dir = element.dir;
-	this->type = element.type;
-}
 
 void GameElement::setPos()
 {
@@ -50,3 +32,12 @@ void GameElement::moveElement() noexcept
 		break;
 	}
 }
+
+OtherElement::OtherElement(ElementType type, QPixmap pix)
+	: QGraphicsPixmapItem(), type(type)
+{
+	setPixmap(pix);
+}
+OtherElement::OtherElement(const OtherElement& other)
+	: type(other.type)
+{}
