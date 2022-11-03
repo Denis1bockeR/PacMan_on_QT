@@ -18,14 +18,15 @@ Map::Map(const char* puth, ushort h, ushort w)
 	
 	readMap(puth);
     displayScore();
-    setScore(Map::sBall);
 }
 Map::~Map()
 {
     for (int i = 0; i < otherElement.size(); ++i)
     {
-        delete otherElement[i];
-        otherElement.pop_back();
+        for (int j = 0; j < otherElement[j].size(); ++j)
+        {
+            delete otherElement[i][j];
+        }
     }
 }
 
@@ -39,9 +40,10 @@ void Map::readMap(const char* puth)
 
     std::string str;
     std::ifstream files(puth);
-    int mapPosY = 0, numOtherEl = 0, numGhost = 0;
+    int mapPosY = 0, numGhost = 0;
     while (getline(files, str))
     {
+        otherElement.emplace_back();
         int mapPosX;
         for (mapPosX = 0; mapPosX < str.length(); ++mapPosX)
         {
@@ -51,42 +53,49 @@ void Map::readMap(const char* puth)
             switch (str[mapPosX])
             {
             case '1':
-                otherElement.emplace_back(new OtherElement(OtherElement::tWall, wallPix));
-                otherElement[numOtherEl]->setPos(tmp_x, tmp_y);
-                addItem(otherElement[numOtherEl]);
-                ++numOtherEl;
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tWall, wallPix));
+                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
+                otherElement[mapPosY][mapPosX]->setZValue(-1);
+                addItem(otherElement[mapPosY][mapPosX]);
                 break;
             case 'b':
-                otherElement.emplace_back(new OtherElement(OtherElement::tBall, ballPix));
-                otherElement[numOtherEl]->setPos(tmp_x, tmp_y);
-                addItem(otherElement[numOtherEl]);
-                ++numOtherEl;
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBall, ballPix));
+                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
+                otherElement[mapPosY][mapPosX]->setZValue(-1);
+                addItem(otherElement[mapPosY][mapPosX]);
                 break;
             case '4':
-                otherElement.emplace_back(new OtherElement(OtherElement::tPowerBall, powerBallPix));
-                otherElement[numOtherEl]->setPos(tmp_x, tmp_y);
-                addItem(otherElement[numOtherEl]);
-                ++numOtherEl;
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tPowerBall, powerBallPix));
+                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
+                otherElement[mapPosY][mapPosX]->setZValue(-1);
+                addItem(otherElement[mapPosY][mapPosX]);
                 break;
             case '3':
-                otherElement.emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
-                otherElement[numOtherEl]->setPos(tmp_x, tmp_y);
-                addItem(otherElement[numOtherEl]);
-                ++numOtherEl;
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
+                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
+                otherElement[mapPosY][mapPosX]->setZValue(-1);
+                addItem(otherElement[mapPosY][mapPosX]);
                 break;
             case '2':
-                otherElement.emplace_back(new OtherElement(OtherElement::tTeleport, teleportPix));
-                otherElement[numOtherEl]->setPos(tmp_x, tmp_y);
-                addItem(otherElement[numOtherEl]);
-                ++numOtherEl;
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tTeleport, teleportPix));
+                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
+                otherElement[mapPosY][mapPosX]->setZValue(-1);
+                addItem(otherElement[mapPosY][mapPosX]);
                 break;
             case 'p':
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
+
                 addWidget(&pacman)->setPos(tmp_x, tmp_y);
                 pacman.setPos();
+                pacman.map = this;
                 break;
             case 'g':
+                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
+
                 addWidget(&ghost[numGhost])->setPos(tmp_x, tmp_y);
                 ghost[numGhost].setPos();
+
+                ghost[numGhost].map = this;
                 ++numGhost;
                 break;
             }

@@ -1,4 +1,7 @@
-#include "gameElement.h"
+#include <QTimer>
+#include <QGraphicsWidget>
+
+#include "../Map/map.h"
 
 GameElement::GameElement(ElementType type)
 	: QLabel(), type(type), dir(Stop)
@@ -11,26 +14,61 @@ void GameElement::setPos()
 	x = pos().x();
 	y = pos().y();
 }
-void GameElement::moveElement() noexcept
+void GameElement::move()
 {
 	switch (dir)
 	{
-	case Left:
-		move(--x, y);
+	case GameElement::Up:
+		if (checkWall((x + 10) / SIZE, (y - 30) / SIZE))
+		{
+			QLabel::move(x, y--);
+		}
+		else
+		{
+			dir = Stop;
+		}
 		break;
-	case Right:
-		move(++x, y);
+	case GameElement::Down:
+		if (checkWall((x + 10) / SIZE, ((y - 30) / SIZE) + 1))
+		{
+			QLabel::move(x, y++);
+		}
+		else
+		{
+			dir = Stop;
+		}
 		break;
-	case Up:
-		move(x, --y);
+	case GameElement::Right:
+		if (checkWall((x / SIZE) + 1, (y - 20) / SIZE))
+		{
+			QLabel::move(x++, y);
+		}
+		else
+		{
+			dir = Stop;
+		}
 		break;
-	case Down:
-		move(x, ++y);
-		break;
-	case GameElement::Stop:
-		move(x, y);
+	case GameElement::Left:
+		if (checkWall(x / SIZE, (y - 20) / SIZE))
+		{
+			QLabel::move(x--, y);
+		}
+		else
+		{
+			dir = Stop;
+		}
 		break;
 	}
+}
+void GameElement::moveElement(ushort score)
+{
+	QTimer* timer = new QTimer();
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+	timer->start(TIMER * cos(x / (6 * TIMER)));
+}
+bool GameElement::checkWall(short x, short y)
+{
+	return map->getOneOtherEl(x, y)->getType() == OtherElement::tWall ? false : true;
 }
 
 OtherElement::OtherElement(ElementType type, QPixmap pix)

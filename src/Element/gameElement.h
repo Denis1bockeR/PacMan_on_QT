@@ -7,10 +7,17 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
+#define TIMER 250
+#define SIZE 20
+
+class Map;
+
 class GameElement : public QLabel
 {
-	Q_OBJECT;
+	Q_OBJECT
 
+public:
+	short x, y;
 public:
 	enum ElementType{ tPacman, tGhost, tWeakGhost };
 	enum Dir { Up, Down, Right, Left, Stop };
@@ -19,12 +26,20 @@ public:
 	~GameElement() = default;
 
 	void setPos();
+	void moveElement(ushort score);
+
+	inline constexpr Dir getDir() noexcept { return dir; };
+public slots:
+	void move();
 protected:
-	short x, y;
 	ElementType type;
 	Dir dir;
-protected slots:
-	void moveElement() noexcept;
+
+	Map* map;
+
+	friend class Map;
+protected:
+	bool checkWall(short x, short y);
 };
 
 class Pacman : public GameElement
@@ -36,6 +51,7 @@ private:
 	QMovie anim;
 private:
 	void loadingAnim(const char* puth) noexcept;
+	void keyPressEvent(QKeyEvent* event);
 };
 
 class Ghost : public GameElement
@@ -65,6 +81,8 @@ public:
 	OtherElement(ElementType type, QPixmap pix);
 	OtherElement(const OtherElement& other);
 	~OtherElement() = default;
+
+	constexpr inline ElementType getType() const noexcept { return type; };
 private:
 	ElementType type;
 };
