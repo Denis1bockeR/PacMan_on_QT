@@ -5,7 +5,7 @@
 Game::Game(const char* mapPuth, ushort h, ushort w)
 {
 	map = new Map(mapPuth, h, w);
-	map->getPacman()->moveElement(map->getScore());
+	map->getPacman()->moveTimeElement(map->getScore());
 }
 
 void Game::moveElTimer()

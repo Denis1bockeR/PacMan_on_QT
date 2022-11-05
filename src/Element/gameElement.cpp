@@ -14,61 +14,75 @@ void GameElement::setPos()
 	x = pos().x();
 	y = pos().y();
 }
+void GameElement::setPos(short newX, short newY)
+{
+	x = newX;
+	y = newY;
+}
 void GameElement::move()
 {
+	short otherElX, otherElY;
+
 	switch (dir)
 	{
 	case GameElement::Up:
-		if (checkWall((x + 10) / SIZE, (y - 30) / SIZE))
-		{
-			QLabel::move(x, y--);
-		}
-		else
-		{
-			dir = Stop;
-		}
+		otherElX = (x + HALF_SIZE) / SIZE;
+		otherElY = (y - SIZE_SCORE) / SIZE;
+
+		searchTypeElement(otherElX, otherElY, x, y - 1);
 		break;
 	case GameElement::Down:
-		if (checkWall((x + 10) / SIZE, ((y - 30) / SIZE) + 1))
-		{
-			QLabel::move(x, y++);
-		}
-		else
-		{
-			dir = Stop;
-		}
+		otherElX = (x + HALF_SIZE) / SIZE;
+		otherElY = ((y - SIZE_SCORE) / SIZE) + 1;
+
+		searchTypeElement(otherElX, otherElY, x, y + 1);
 		break;
 	case GameElement::Right:
-		if (checkWall((x / SIZE) + 1, (y - 20) / SIZE))
-		{
-			QLabel::move(x++, y);
-		}
-		else
-		{
-			dir = Stop;
-		}
+		otherElX = (x / SIZE) + 1;
+		otherElY = (y - 20) / SIZE;
+
+		searchTypeElement(otherElX, otherElY, x + 1, y);
 		break;
 	case GameElement::Left:
-		if (checkWall(x / SIZE, (y - 20) / SIZE))
-		{
-			QLabel::move(x--, y);
-		}
-		else
-		{
-			dir = Stop;
-		}
+		otherElX = x / SIZE;
+		otherElY = (y - 20) / SIZE;
+
+		searchTypeElement(otherElX, otherElY, x - 1, y);
 		break;
 	}
 }
-void GameElement::moveElement(ushort score)
+void GameElement::moveTimeElement(ushort score)
 {
 	QTimer* timer = new QTimer();
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 	timer->start(TIMER * cos(x / (6 * TIMER)));
 }
-bool GameElement::checkWall(short x, short y)
+void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 {
-	return map->getOneOtherEl(x, y)->getType() == OtherElement::tWall ? false : true;
+	switch (map->getOneOtherEl(x, y)->getType())
+	{
+	case OtherElement::tWall:
+		dir = Stop;
+		break;
+	case OtherElement::tBall:
+		map->setScore(Map::sBall);
+		QLabel::move(newX, newY);
+		setPos(newX, newY);
+		map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank);
+		break;
+	case OtherElement::tPowerBall:
+		map->setScore(Map::sSuperBall);
+		QLabel::move(newX, newY);
+		setPos(newX, newY);
+		map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank);
+		break;
+	case OtherElement::tTeleport:
+		break;
+	case OtherElement::tBlank:
+		QLabel::move(newX, newY);
+		setPos(newX, newY);
+		break;
+	}
 }
 
 OtherElement::OtherElement(ElementType type, QPixmap pix)

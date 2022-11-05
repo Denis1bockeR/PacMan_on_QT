@@ -9,6 +9,8 @@
 
 #include "../Element/gameElement.h"
 
+#define SIZE_SCORE 30
+
 class Map : public QGraphicsScene
 {
 	Q_OBJECT
@@ -18,6 +20,8 @@ public:
 
 	Map(const char* puth, ushort h, ushort w);
 	~Map();
+
+	void setScore(Score score) noexcept;
 
 	inline int getSizeOtherEl() noexcept { return otherElement.size(); };
 	inline OtherElement* getOneOtherEl(short x, short y) const noexcept { return otherElement[y][x]; };
@@ -36,7 +40,6 @@ private:
 private:
 	void readMap(const char* puth);
 
-	inline void setScore(Score score) noexcept { this->score += score; };
 	void displayScore() noexcept;
 };
 

@@ -9,6 +9,7 @@
 
 #define TIMER 250
 #define SIZE 20
+#define HALF_SIZE SIZE/2
 
 class Map;
 
@@ -26,7 +27,8 @@ public:
 	~GameElement() = default;
 
 	void setPos();
-	void moveElement(ushort score);
+	void setPos(short newX, short newY);
+	void moveTimeElement(ushort score);
 
 	inline constexpr Dir getDir() noexcept { return dir; };
 public slots:
@@ -39,7 +41,7 @@ protected:
 
 	friend class Map;
 protected:
-	bool checkWall(short x, short y);
+	void searchTypeElement(short x, short y, short newX, short newY);
 };
 
 class Pacman : public GameElement
@@ -83,6 +85,7 @@ public:
 	~OtherElement() = default;
 
 	constexpr inline ElementType getType() const noexcept { return type; };
+	constexpr inline void updateType(ElementType type) noexcept { this->type = type; };
 private:
 	ElementType type;
 };

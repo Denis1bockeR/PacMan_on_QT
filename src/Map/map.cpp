@@ -110,3 +110,8 @@ void Map::displayScore() noexcept
     dispScore->setPos(0, 0);
     addItem(dispScore);
 }
+void Map::setScore(Score score) noexcept
+{
+    this->score += score;
+    updateDispScore();
+}
