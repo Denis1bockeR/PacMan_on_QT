@@ -1,7 +1,7 @@
 #include "gameElement.h"
 
 Ghost::Ghost()
-	: GameElement(tGhost), status(Normal)
+	: GameElement(tGhost, 0.9f), status(Normal)
 {}
 
 void Ghost::setColor(Color clr) noexcept
@@ -31,11 +31,13 @@ void Ghost::changeStatus(Status status) noexcept
 	{
 		setPixmap(QPixmap("../Texture/weakGhost.png"));
 		type = tWeakGhost;
+		multiplySpeed = 0.9f;
 	}
 	else
 	{
 		setPixmap(tex);
 		type = tGhost;
+		multiplySpeed = 0.65f;
 	}
 }
 

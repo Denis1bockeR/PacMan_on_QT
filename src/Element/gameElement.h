@@ -1,6 +1,8 @@
 #ifndef _GAMEELEMENT_H_
 #define _GAMEELEMENT_H_
 
+#include <functional>
+
 #include <QLabel>
 #include <QMovie>
 #include <QKeyEvent>
@@ -23,8 +25,8 @@ public:
 	enum ElementType{ tPacman, tGhost, tWeakGhost };
 	enum Dir { Up, Down, Right, Left, Stop };
 
-	GameElement(ElementType type);
-	~GameElement() = default;
+	GameElement(ElementType type, float multiplySpeed);
+	~GameElement();
 
 	void setPos();
 	void setPos(short newX, short newY);
@@ -36,16 +38,21 @@ public slots:
 protected:
 	ElementType type;
 	Dir dir;
+	float multiplySpeed;
 
 	Map* map;
+	QTimer* moveTimer;
 
-	friend class Map;
+	std::function<int()> moveSpeedFromTime;
 protected:
 	void searchTypeElement(short x, short y, short newX, short newY);
+private:
+	inline bool checkDistToBall(short x, short y) noexcept { return x % 20 == 10 || (y - 30) % 20 == 10 ? true : false; };
 };
 
 class Pacman : public GameElement
 {
+	friend class Map;
 public:
 	explicit Pacman();
 	~Pacman() = default;
@@ -58,6 +65,7 @@ private:
 
 class Ghost : public GameElement
 {
+	friend class Map;
 public:
 	enum Color { Red = 0, Yellow = 1, Green = 2, Pink = 3 };
 	enum Status { Normal, Panic };
@@ -85,7 +93,7 @@ public:
 	~OtherElement() = default;
 
 	constexpr inline ElementType getType() const noexcept { return type; };
-	constexpr inline void updateType(ElementType type) noexcept { this->type = type; };
+	void updateType(ElementType type, QPixmap pix) noexcept;
 private:
 	ElementType type;
 };

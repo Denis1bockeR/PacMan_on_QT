@@ -11,7 +11,6 @@ public:
 	explicit Game(const char* mapPuth, ushort h, ushort w);
 	~Game();
 
-	void moveElTimer();
 	void PowerBallTimer();
 
 	inline Map* getMap() { return map; };

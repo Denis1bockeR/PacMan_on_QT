@@ -3,11 +3,17 @@
 
 #include "../Map/map.h"
 
-GameElement::GameElement(ElementType type)
-	: QLabel(), type(type), dir(Stop)
+GameElement::GameElement(ElementType type, float multiplySpeed)
+	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed)
 {
 	setFixedSize(20, 20);
-};
+
+	moveSpeedFromTime = [this]() ->int { return (1 + (TIMER)) * this->multiplySpeed; };
+}
+GameElement::~GameElement()
+{
+	delete moveTimer;
+}
 
 void GameElement::setPos()
 {
@@ -53,9 +59,9 @@ void GameElement::move()
 }
 void GameElement::moveTimeElement(ushort score)
 {
-	QTimer* timer = new QTimer();
-	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(move()));
-	timer->start(TIMER * cos(x / (6 * TIMER)));
+	moveTimer = new QTimer();
+	QObject::connect(moveTimer, SIGNAL(timeout()), this, SLOT(move()));
+	moveTimer->start(moveSpeedFromTime());
 }
 void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 {
@@ -65,18 +71,45 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		dir = Stop;
 		break;
 	case OtherElement::tBall:
-		map->setScore(Map::sBall);
+		if (checkDistToBall(newX, newY))
+		{
+			map->setScore(Map::sBall);
+			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
+		}
+
 		QLabel::move(newX, newY);
 		setPos(newX, newY);
-		map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank);
+
 		break;
 	case OtherElement::tPowerBall:
-		map->setScore(Map::sSuperBall);
+		if (checkDistToBall(newX, newY))
+		{
+			map->setScore(Map::sSuperBall);
+			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
+		}
+
 		QLabel::move(newX, newY);
 		setPos(newX, newY);
-		map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank);
+
 		break;
 	case OtherElement::tTeleport:
+		if (checkDistToBall(newX, newY))
+		{
+			if (dir == Right)
+			{
+				QLabel::move(10, newY);
+			}
+			else
+			{
+				QLabel::move(28 * SIZE - 10, newY);
+			}
+		}
+		else
+		{
+			QLabel::move(newX, newY);
+		}
+		setPos(pos().x(), newY);
+
 		break;
 	case OtherElement::tBlank:
 		QLabel::move(newX, newY);
@@ -93,3 +126,9 @@ OtherElement::OtherElement(ElementType type, QPixmap pix)
 OtherElement::OtherElement(const OtherElement& other)
 	: type(other.type)
 {}
+
+void OtherElement::updateType(ElementType type, QPixmap pix)  noexcept
+{
+	this->type = type;
+	setPixmap(pix);
+}

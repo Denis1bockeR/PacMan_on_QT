@@ -6,11 +6,7 @@ Game::Game(const char* mapPuth, ushort h, ushort w)
 {
 	map = new Map(mapPuth, h, w);
 	map->getPacman()->moveTimeElement(map->getScore());
-}
 
-void Game::moveElTimer()
-{
-	timer = new QTimer();
-	QObject::connect(timer, SIGNAL(timeout()), map->getPacman(), SLOT(map->getPacman()->move()));
-	timer->start(10);
+	for (int i = 0; i < 4; ++i)
+		map->getGhost(i)->moveTimeElement(map->getScore());
 }

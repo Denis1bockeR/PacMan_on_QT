@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <QGraphicsProxyWidget>
+#include <QTimer>
 
 #include "map.h"
 
@@ -114,4 +115,14 @@ void Map::setScore(Score score) noexcept
 {
     this->score += score;
     updateDispScore();
+
+    updateMapDepenScore();
+}
+
+void Map::updateMapDepenScore()
+{
+    pacman.moveTimer->setInterval(pacman.moveSpeedFromTime());
+
+    for (int i = 0; i < 4; ++i)
+        ghost[i].moveTimer->setInterval(ghost[i].moveSpeedFromTime());
 }

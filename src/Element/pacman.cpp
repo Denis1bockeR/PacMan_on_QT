@@ -4,7 +4,7 @@
 #include "../Map/map.h"
 
 Pacman::Pacman()
-	: GameElement(tPacman)
+	: GameElement(tPacman, 1.0f)
 {
 	anim.setFileName("../Texture/startPacman.png");
 	anim.start();
