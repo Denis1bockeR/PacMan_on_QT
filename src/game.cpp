@@ -10,3 +10,7 @@ Game::Game(const char* mapPuth, ushort h, ushort w)
 	for (int i = 0; i < 4; ++i)
 		map->getGhost(i)->moveTimeElement(map->getScore());
 }
+Game::~Game()
+{
+	delete map;
+}

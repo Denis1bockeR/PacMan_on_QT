@@ -1,4 +1,3 @@
-#include <QTimer>
 #include <QGraphicsWidget>
 
 #include "../Map/map.h"
@@ -6,9 +5,9 @@
 GameElement::GameElement(ElementType type, float multiplySpeed)
 	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed)
 {
-	setFixedSize(20, 20);
+	setFixedSize(SIZE, SIZE);
 
-	moveSpeedFromTime = [this]() ->int { return (1 + (TIMER)) * this->multiplySpeed; };
+	moveSpeedFromTime = [this]() ->int { return MOVETIMER * this->multiplySpeed; };
 }
 GameElement::~GameElement()
 {
@@ -45,13 +44,13 @@ void GameElement::move()
 		break;
 	case GameElement::Right:
 		otherElX = (x / SIZE) + 1;
-		otherElY = (y - 20) / SIZE;
+		otherElY = (y - SIZE) / SIZE;
 
 		searchTypeElement(otherElX, otherElY, x + 1, y);
 		break;
 	case GameElement::Left:
 		otherElX = x / SIZE;
-		otherElY = (y - 20) / SIZE;
+		otherElY = (y - SIZE) / SIZE;
 
 		searchTypeElement(otherElX, otherElY, x - 1, y);
 		break;
@@ -71,10 +70,11 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		dir = Stop;
 		break;
 	case OtherElement::tBall:
-		if (checkDistToBall(newX, newY))
+		if (checkDistToBall(newX, newY) && type == tPacman)
 		{
 			map->setScore(Map::sBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
+			MOVETIMER -= (MOVETIMER / (60 - Map::sBall));
 		}
 
 		QLabel::move(newX, newY);
@@ -82,10 +82,14 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 
 		break;
 	case OtherElement::tPowerBall:
-		if (checkDistToBall(newX, newY))
+		if (checkDistToBall(newX, newY) && type == tPacman)
 		{
 			map->setScore(Map::sSuperBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
+			MOVETIMER -= (MOVETIMER / (60 - Map::sSuperBall));
+
+			for (int i = 0; i < 4; i++)
+				map->getGhost(i)->changeStatusPanic();
 		}
 
 		QLabel::move(newX, newY);
@@ -97,11 +101,11 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		{
 			if (dir == Right)
 			{
-				QLabel::move(10, newY);
+				QLabel::move(HALF_SIZE, newY);
 			}
 			else
 			{
-				QLabel::move(28 * SIZE - 10, newY);
+				QLabel::move(28 * SIZE - HALF_SIZE, newY);
 			}
 		}
 		else

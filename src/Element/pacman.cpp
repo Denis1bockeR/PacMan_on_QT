@@ -28,7 +28,7 @@ void Pacman::keyPressEvent(QKeyEvent* event)
 		loadingAnim("../Texture/rPacman.gif");
 
 		otherElX = (x / SIZE) + 1;
-		otherElY = (y - 20) / SIZE;
+		otherElY = (y - SIZE) / SIZE;
 
 		searchTypeElement(otherElX, otherElY, x + 1, y);
 		break;
@@ -37,7 +37,7 @@ void Pacman::keyPressEvent(QKeyEvent* event)
 		loadingAnim("../Texture/lPacman.gif");
 
 		otherElX = x / SIZE;
-		otherElY = (y - 20) / SIZE;
+		otherElY = (y - SIZE) / SIZE;
 
 		searchTypeElement(otherElX, otherElY, x - 1, y);
 		break;

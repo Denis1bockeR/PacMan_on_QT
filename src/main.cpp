@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
     view.setScene(game->getMap());
     view.setBackgroundBrush(QBrush(Qt::black));
     view.show();
+    view.setFixedSize(view.size());
     game->getMap()->getPacman()->setFocus();
     return app.exec();
 }

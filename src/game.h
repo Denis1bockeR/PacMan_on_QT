@@ -11,12 +11,9 @@ public:
 	explicit Game(const char* mapPuth, ushort h, ushort w);
 	~Game();
 
-	void PowerBallTimer();
-
 	inline Map* getMap() { return map; };
 private:
 	Map* map;
-	QTimer* timer;
 private:
 	void start() noexcept;
 };

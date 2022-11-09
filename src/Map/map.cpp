@@ -48,7 +48,7 @@ void Map::readMap(const char* puth)
         int mapPosX;
         for (mapPosX = 0; mapPosX < str.length(); ++mapPosX)
         {
-            int tmp_y = 30 + mapPosY * SIZE;
+            int tmp_y = SIZE_SCORE + mapPosY * SIZE;
             int tmp_x = mapPosX * SIZE;
 
             switch (str[mapPosX])

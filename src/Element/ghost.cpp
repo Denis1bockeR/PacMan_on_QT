@@ -1,8 +1,15 @@
-#include "gameElement.h"
+#include "../Map/map.h"
 
 Ghost::Ghost()
 	: GameElement(tGhost, 0.9f), status(Normal)
-{}
+{
+	statusTimer = new QTimer();
+	QObject::connect(statusTimer, SIGNAL(timeout()), this, SLOT(changeStatusNormal()));
+}
+Ghost::~Ghost()
+{
+	delete statusTimer;
+}
 
 void Ghost::setColor(Color clr) noexcept
 {
@@ -23,26 +30,32 @@ void Ghost::setColor(Color clr) noexcept
 	}
 
 }
-void Ghost::changeStatus(Status status) noexcept
+void Ghost::changeStatusPanic() noexcept
 {
-	this->status = status;
+	this->status = Panic;
 
-	if (status == Panic)
-	{
-		setPixmap(QPixmap("../Texture/weakGhost.png"));
-		type = tWeakGhost;
-		multiplySpeed = 0.9f;
-	}
-	else
-	{
-		setPixmap(tex);
-		type = tGhost;
-		multiplySpeed = 0.65f;
-	}
+	setPixmap(QPixmap("../Texture/weakGhost.png"));
+	type = tWeakGhost;
+	multiplySpeed = 0.8f;
+
+	statusTimer->start(STATUSTIMER);
+}
+void Ghost::changeStatusNormal() noexcept
+{
+	this->status = Normal;
+
+	setPixmap(tex);
+	type = tGhost;
+	multiplySpeed = 0.9f;
 }
 
 void Ghost::setTexture(const char* puth) noexcept
 {
 	tex = QPixmap(puth);
 	setPixmap(tex);
+}
+
+bool Ghost::checkDistToPacman() noexcept
+{
+	return abs(x - map->getPacman()->x) < SIZE && abs(y - map->getPacman()->y) < SIZE ? true : false;
 }

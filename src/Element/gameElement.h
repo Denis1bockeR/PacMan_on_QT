@@ -8,10 +8,14 @@
 #include <QKeyEvent>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <QTimer>
 
-#define TIMER 250
+#define STATUSTIMER 10000
 #define SIZE 20
 #define HALF_SIZE SIZE/2
+#define SIZE_SCORE 30
+
+static short MOVETIMER = 250;
 
 class Map;
 
@@ -47,7 +51,7 @@ protected:
 protected:
 	void searchTypeElement(short x, short y, short newX, short newY);
 private:
-	inline bool checkDistToBall(short x, short y) noexcept { return x % 20 == 10 || (y - 30) % 20 == 10 ? true : false; };
+	inline bool checkDistToBall(short x, short y) noexcept { return x % SIZE == 5 || (y - SIZE_SCORE) % SIZE == 5 ? true : false; };
 };
 
 class Pacman : public GameElement
@@ -65,22 +69,29 @@ private:
 
 class Ghost : public GameElement
 {
+	Q_OBJECT
+
 	friend class Map;
 public:
 	enum Color { Red = 0, Yellow = 1, Green = 2, Pink = 3 };
 	enum Status { Normal, Panic };
 
 	explicit Ghost();
-	~Ghost() = default;
+	~Ghost();
 
 	void setColor(Color clr) noexcept;
-	void changeStatus(Status status) noexcept;
+	void changeStatusPanic() noexcept;
 private:
 	Color col;
 	Status status;
 	QPixmap tex;
+
+	QTimer* statusTimer;
 private:
 	void setTexture(const char* puth) noexcept;
+	bool checkDistToPacman() noexcept;
+private slots:
+	void changeStatusNormal() noexcept;
 };
 
 class OtherElement : public QGraphicsPixmapItem
