@@ -17,14 +17,21 @@ Map::Map(const char* puth, ushort h, ushort w)
 	ghost[2].setColor(Ghost::Green);
 	ghost[3].setColor(Ghost::Pink);
 	
+    pacman.map = this;
+    for (int i = 0; i < 4; i++)
+    {
+        ghost[i].map = this;
+    }
+
 	readMap(puth);
+
     displayScore();
 }
 Map::~Map()
 {
     for (int i = 0; i < otherElement.size(); ++i)
     {
-        for (int j = 0; j < otherElement[j].size(); ++j)
+        for (int j = 0; j < otherElement[i].size(); ++j)
         {
             delete otherElement[i][j];
         }
@@ -54,41 +61,25 @@ void Map::readMap(const char* puth)
             switch (str[mapPosX])
             {
             case '1':
-                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tWall, wallPix));
-                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
-                otherElement[mapPosY][mapPosX]->setZValue(-1);
-                addItem(otherElement[mapPosY][mapPosX]);
+                setOtherElAttribute(OtherElement::tWall, wallPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
             case 'b':
-                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBall, ballPix));
-                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
-                otherElement[mapPosY][mapPosX]->setZValue(-1);
-                addItem(otherElement[mapPosY][mapPosX]);
+                setOtherElAttribute(OtherElement::tBall, ballPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
             case '4':
-                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tPowerBall, powerBallPix));
-                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
-                otherElement[mapPosY][mapPosX]->setZValue(-1);
-                addItem(otherElement[mapPosY][mapPosX]);
+                setOtherElAttribute(OtherElement::tPowerBall, powerBallPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
             case '3':
-                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
-                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
-                otherElement[mapPosY][mapPosX]->setZValue(-1);
-                addItem(otherElement[mapPosY][mapPosX]);
+                setOtherElAttribute(OtherElement::tBlank, blankPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
             case '2':
-                otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tTeleport, teleportPix));
-                otherElement[mapPosY][mapPosX]->setPos(tmp_x, tmp_y);
-                otherElement[mapPosY][mapPosX]->setZValue(-1);
-                addItem(otherElement[mapPosY][mapPosX]);
+                setOtherElAttribute(OtherElement::tTeleport, teleportPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
             case 'p':
                 otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
 
                 addWidget(&pacman)->setPos(tmp_x, tmp_y);
                 pacman.setPos();
-                pacman.map = this;
                 break;
             case 'g':
                 otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
@@ -96,7 +87,6 @@ void Map::readMap(const char* puth)
                 addWidget(&ghost[numGhost])->setPos(tmp_x, tmp_y);
                 ghost[numGhost].setPos();
 
-                ghost[numGhost].map = this;
                 ++numGhost;
                 break;
             }
@@ -104,6 +94,15 @@ void Map::readMap(const char* puth)
         ++mapPosY;
     }
 }
+void Map::setOtherElAttribute(OtherElement::ElementType type, QPixmap pix, short mapPosX, short mapPosY, short x, short y) noexcept
+{
+    otherElement[mapPosY].emplace_back(new OtherElement(type, pix));
+    otherElement[mapPosY][mapPosX]->setPos(x, y);
+    otherElement[mapPosY][mapPosX]->setZValue(-1);
+    addItem(otherElement[mapPosY][mapPosX]);
+};
+
+
 void Map::displayScore() noexcept
 {
     dispScore = new QGraphicsTextItem("Score: " + QString::number(score));

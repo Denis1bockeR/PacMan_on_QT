@@ -11,6 +11,24 @@ Ghost::~Ghost()
 	delete statusTimer;
 }
 
+void Ghost::moveEvent(QMoveEvent* event)
+{
+	if (checkDistToPacman())
+	{
+		switch (status)
+		{
+		case Ghost::Normal:
+			
+			break;
+		case Ghost::Panic:
+			map->setScore(Map::sGhost);
+			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
+			MOVETIMER -= (MOVETIMER / (60 - Map::sGhost));
+			break;
+		}
+	}
+};
+
 void Ghost::setColor(Color clr) noexcept
 {
 	switch (clr)
@@ -54,8 +72,7 @@ void Ghost::setTexture(const char* puth) noexcept
 	tex = QPixmap(puth);
 	setPixmap(tex);
 }
-
-bool Ghost::checkDistToPacman() noexcept
-{
-	return abs(x - map->getPacman()->x) < SIZE && abs(y - map->getPacman()->y) < SIZE ? true : false;
-}
+bool Ghost::checkDistToPacman() noexcept 
+{ 
+	return abs(x - map->getPacman()->x) < SIZE && abs(y - map->getPacman()->y) < SIZE ? true : false; 
+};

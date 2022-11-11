@@ -41,6 +41,7 @@ private:
 	friend class GameElement;
 private:
 	void readMap(const char* puth);
+	void setOtherElAttribute(OtherElement::ElementType type, QPixmap pix, short mapPosX, short mapPosY, short x, short y) noexcept;
 
 	void displayScore() noexcept;
 	void updateMapDepenScore();

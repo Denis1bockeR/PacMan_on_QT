@@ -2,6 +2,7 @@
 #define _GAMEELEMENT_H_
 
 #include <functional>
+#include <array>
 
 #include <QLabel>
 #include <QMovie>
@@ -51,7 +52,7 @@ protected:
 protected:
 	void searchTypeElement(short x, short y, short newX, short newY);
 private:
-	inline bool checkDistToBall(short x, short y) noexcept { return x % SIZE == 5 || (y - SIZE_SCORE) % SIZE == 5 ? true : false; };
+	inline bool checkDistToBall(short x, short y) noexcept { return x % SIZE == 10 || (y - SIZE_SCORE) % SIZE == 10 ? true : false; };
 };
 
 class Pacman : public GameElement
@@ -86,10 +87,16 @@ private:
 	Status status;
 	QPixmap tex;
 
+	Dir nextDir;
+
 	QTimer* statusTimer;
+
+	std::array<std::function<void()>, 4> chaseStrategy;
 private:
 	void setTexture(const char* puth) noexcept;
 	bool checkDistToPacman() noexcept;
+
+	void moveEvent(QMoveEvent* event);
 private slots:
 	void changeStatusNormal() noexcept;
 };

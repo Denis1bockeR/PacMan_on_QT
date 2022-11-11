@@ -1,18 +1,14 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QWidget>
 
-#include "game.h"
+#include "Window/mainWindow.h"
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    QGraphicsView view;
-    Game* game = new Game("../Texture/map.txt", 20, 29);
-    view.setScene(game->getMap());
-    view.setBackgroundBrush(QBrush(Qt::black));
-    view.show();
-    view.setFixedSize(view.size());
-    game->getMap()->getPacman()->setFocus();
+    MainWindow window;
+    window.show();
     return app.exec();
 }

@@ -3,7 +3,7 @@
 #include "../Map/map.h"
 
 GameElement::GameElement(ElementType type, float multiplySpeed)
-	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed)
+	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed), x(0), y(0)
 {
 	setFixedSize(SIZE, SIZE);
 
