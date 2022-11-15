@@ -1,4 +1,7 @@
+#include <functional>
+
 #include "../Map/map.h"
+#include "strategy.hpp"
 
 Ghost::Ghost()
 	: GameElement(tGhost, 0.9f), status(Normal)
@@ -18,7 +21,7 @@ void Ghost::moveEvent(QMoveEvent* event)
 		switch (status)
 		{
 		case Ghost::Normal:
-			
+			ghostStrategy[col](this);
 			break;
 		case Ghost::Panic:
 			map->setScore(Map::sGhost);
@@ -35,15 +38,19 @@ void Ghost::setColor(Color clr) noexcept
 	{
 	case Ghost::Green:
 		setTexture("../Texture/greenGhost.png");
+		col = clr;
 		break;
 	case Ghost::Red:
 		setTexture("../Texture/redGhost.png");
+		col = clr;
 		break;
 	case Ghost::Yellow:
 		setTexture("../Texture/yellowGhost.png");
+		col = clr;
 		break;
 	case Ghost::Pink:
 		setTexture("../Texture/pinkGhost.png");
+		col = clr;
 		break;
 	}
 

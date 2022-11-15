@@ -1,6 +1,7 @@
 #include <QGraphicsWidget>
 
 #include "../Map/map.h"
+#include "../game.h"
 
 GameElement::GameElement(ElementType type, float multiplySpeed)
 	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed), x(0), y(0)
@@ -56,7 +57,7 @@ void GameElement::move()
 		break;
 	}
 }
-void GameElement::moveTimeElement(ushort score)
+void GameElement::moveTimeElement()
 {
 	moveTimer = new QTimer();
 	QObject::connect(moveTimer, SIGNAL(timeout()), this, SLOT(move()));
@@ -69,12 +70,16 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 	case OtherElement::tWall:
 		dir = Stop;
 		break;
+	case OtherElement::tGates:
+		QLabel::move(newX, newY);
+		break;
 	case OtherElement::tBall:
 		if (checkDistToBall(newX, newY) && type == tPacman)
 		{
 			map->setScore(Map::sBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
 			MOVETIMER -= (MOVETIMER / (60 - Map::sBall));
+			map->nBall--;
 		}
 
 		QLabel::move(newX, newY);
@@ -90,6 +95,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 
 			for (int i = 0; i < 4; i++)
 				map->getGhost(i)->changeStatusPanic();
+			map->nBall--;
 		}
 
 		QLabel::move(newX, newY);

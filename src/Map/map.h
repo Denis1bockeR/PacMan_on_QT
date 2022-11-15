@@ -1,8 +1,10 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 
+#include <utility>
 #include <vector>
 #include <array>
+
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
 #include <QString>
@@ -28,10 +30,12 @@ public:
 	inline Pacman* getPacman() noexcept { return &pacman; };
 	inline Ghost*  getGhost(short i)  noexcept { return &ghost[i]; };
 
+	inline std::pair<ushort, ushort> getGhastPos() noexcept { return{ X_GHAST, Y_GHAST }; };
+
 	inline void updateDispScore() noexcept { dispScore->setPlainText("Score: " + QString::number(score)); };
 	inline ushort getScore() noexcept { return score; };
 private:
-	ushort weight, height, score;
+	ushort weight, height, score, nBall, X_GHAST, Y_GHAST;
 
 	QGraphicsTextItem* dispScore;
 	std::vector <std::vector<OtherElement*>> otherElement;

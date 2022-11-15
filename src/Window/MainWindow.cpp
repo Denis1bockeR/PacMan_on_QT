@@ -10,24 +10,20 @@
 MainWindow::MainWindow()
 	: QWidget()
 {
-	setFixedSize(400, 300);
+	setFixedSize(300, 200);
 	setStyleSheet("QPushButton {background-color: black; color: white; border-style: outset; border-color: blue; border-width: 2px; border-radius: 10px; fond: bold 14px;}");
 
     QPushButton* btnStartGame = new QPushButton("ИГРАТЬ", this);
 	btnStartGame->setFixedSize(80, 30);
-	btnStartGame->move(160, 80);
+	btnStartGame->move(110, 40);
 	QPushButton* btnRecords = new QPushButton("РЕКОРДЫ", this);
 	btnRecords->setFixedSize(80, 30);
-	btnRecords->move(160, 130);
-	QPushButton* btnSettings = new QPushButton("НАСТРОЙКИ", this);
-	btnSettings->setFixedSize(80, 30);
-	btnSettings->move(160, 180);
+	btnRecords->move(110, 100);
 	QPushButton* btnExit = new QPushButton("ВЫХОД", this);
 	btnExit->setFixedSize(60, 20);
-	btnExit->move(320, 260);
+	btnExit->move(220, 160);
 
 	QObject::connect(btnStartGame, SIGNAL(clicked()), this, SLOT(openGame()));
-	QObject::connect(btnSettings, SIGNAL(clicked()), this, SLOT(openSettingWindow()));
 	QObject::connect(btnRecords, SIGNAL(clicked()), this, SLOT(openRecordWindow()));
 	QObject::connect(btnExit, SIGNAL(clicked()), this, SLOT(close()));
 }
@@ -35,33 +31,6 @@ MainWindow::MainWindow()
 void MainWindow::openGame() noexcept
 {
 	Game* game = new Game("../Texture/map.txt", 20, 29);
-}
-void MainWindow::openSettingWindow() noexcept
-{
-	QWidget* settingWidget = new QWidget();
-	settingWidget->setAttribute(Qt::WA_DeleteOnClose);
-	settingWidget->setFixedSize(200, 190);
-	settingWidget->setStyleSheet("QWidget {background-color: red;}");
-
-	QLabel* upLabel = new QLabel("Вверх", settingWidget);
-	setStyleLabelSetting(*upLabel, 20);
-	QLabel* downLabel = new QLabel("Вниз", settingWidget);
-	setStyleLabelSetting(*downLabel, 60);
-	QLabel* leftLabel = new QLabel("Влево", settingWidget);
-	setStyleLabelSetting(*leftLabel, 100);
-	QLabel* rightLabel = new QLabel("Вправо", settingWidget);
-	setStyleLabelSetting(*rightLabel, 140);
-
-	QLabel* keyUpLabel = new QLabel("W", settingWidget);
-	setStyleKeyLabelSetting(*keyUpLabel, 20);
-	QLabel* keyDownLabel = new QLabel("S", settingWidget);
-	setStyleKeyLabelSetting(*keyDownLabel, 60);
-	QLabel* keyLeftLabel = new QLabel("A", settingWidget);
-	setStyleKeyLabelSetting(*keyLeftLabel, 100);
-	QLabel* keyRightLabel = new QLabel("D", settingWidget);
-	setStyleKeyLabelSetting(*keyRightLabel, 140);
-
-	settingWidget->show();
 }
 void MainWindow::openRecordWindow() noexcept
 {

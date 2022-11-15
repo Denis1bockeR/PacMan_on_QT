@@ -8,7 +8,7 @@
 #include "map.h"
 
 Map::Map(const char* puth, ushort h, ushort w)
-    : QGraphicsScene(), height(h), weight(w), score(0)
+    : QGraphicsScene(),  height(h), weight(w), score(0), nBall(0)
 {
     setMinimumRenderSize(20.0f);
 
@@ -41,6 +41,7 @@ Map::~Map()
 void Map::readMap(const char* puth)
 {
     QPixmap wallPix("../Texture/wall.png");
+    QPixmap gatesPix("../Texture/gates.png");
     QPixmap ballPix("../Texture/ball.png");
     QPixmap powerBallPix("../Texture/powerBall.png");
     QPixmap teleportPix("../Texture/teleport.png");
@@ -63,11 +64,18 @@ void Map::readMap(const char* puth)
             case '1':
                 setOtherElAttribute(OtherElement::tWall, wallPix, mapPosX, mapPosY, tmp_x, tmp_y);
                 break;
+            case 'h':
+                setOtherElAttribute(OtherElement::tGates, gatesPix, mapPosX, mapPosY, tmp_x, tmp_y);
+                X_GHAST = tmp_x;
+                Y_GHAST = tmp_y;
+                break;
             case 'b':
                 setOtherElAttribute(OtherElement::tBall, ballPix, mapPosX, mapPosY, tmp_x, tmp_y);
+                nBall++;
                 break;
             case '4':
                 setOtherElAttribute(OtherElement::tPowerBall, powerBallPix, mapPosX, mapPosY, tmp_x, tmp_y);
+                nBall++;
                 break;
             case '3':
                 setOtherElAttribute(OtherElement::tBlank, blankPix, mapPosX, mapPosY, tmp_x, tmp_y);

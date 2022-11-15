@@ -35,9 +35,11 @@ public:
 
 	void setPos();
 	void setPos(short newX, short newY);
-	void moveTimeElement(ushort score);
+	void moveTimeElement();
 
 	inline constexpr Dir getDir() noexcept { return dir; };
+	inline void setDir(Dir dir) noexcept { this->dir = dir; };
+	inline constexpr Map* getMap() noexcept { return map; };
 public slots:
 	void move();
 protected:
@@ -82,6 +84,8 @@ public:
 
 	void setColor(Color clr) noexcept;
 	void changeStatusPanic() noexcept;
+
+	inline Map* getMap() noexcept { return map; };
 private:
 	Color col;
 	Status status;
@@ -90,13 +94,12 @@ private:
 	Dir nextDir;
 
 	QTimer* statusTimer;
-
-	std::array<std::function<void()>, 4> chaseStrategy;
 private:
 	void setTexture(const char* puth) noexcept;
 	bool checkDistToPacman() noexcept;
 
 	void moveEvent(QMoveEvent* event);
+	
 private slots:
 	void changeStatusNormal() noexcept;
 };
@@ -104,7 +107,7 @@ private slots:
 class OtherElement : public QGraphicsPixmapItem
 {
 public:
-	enum ElementType { tBall, tPowerBall, tWall, tBlank, tTeleport };
+	enum ElementType { tBall, tPowerBall, tWall, tBlank, tTeleport, tGates };
 
 	OtherElement(ElementType type, QPixmap pix);
 	OtherElement(const OtherElement& other);
