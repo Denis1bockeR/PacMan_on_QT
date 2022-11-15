@@ -15,13 +15,10 @@ public:
 	explicit MainWindow();
 	~MainWindow() = default;
 private:
-	std::array<Qt::Key, 4> controlKey;
-private:
 	void setStyleLabelSetting(QLabel& label, short y) noexcept;
 	void setStyleKeyLabelSetting(QLabel& label, short y) noexcept;
 private slots:
 	void openGame() noexcept;
-	void openSettingWindow() noexcept;
 	void openRecordWindow() noexcept;
 };
 
