@@ -31,7 +31,7 @@ public:
 	enum Dir { Up, Down, Right, Left, Stop };
 
 	GameElement(ElementType type, float multiplySpeed);
-	~GameElement();
+	virtual ~GameElement();
 
 	void setPos();
 	void setPos(short newX, short newY);
@@ -85,6 +85,8 @@ public:
 	void setColor(Color clr) noexcept;
 	void changeStatusPanic() noexcept;
 
+	void strategyTimeElement();
+
 	inline Map* getMap() noexcept { return map; };
 private:
 	Color col;
@@ -94,14 +96,14 @@ private:
 	Dir nextDir;
 
 	QTimer* statusTimer;
+	QTimer* strategyTimer;
 private:
 	void setTexture(const char* puth) noexcept;
 	bool checkDistToPacman() noexcept;
-
-	void moveEvent(QMoveEvent* event);
 	
 private slots:
 	void changeStatusNormal() noexcept;
+	void strategySetting() noexcept;
 };
 
 class OtherElement : public QGraphicsPixmapItem

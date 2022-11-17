@@ -16,7 +16,10 @@ Game::Game(const char* mapPuth, ushort h, ushort w)
 	map->getPacman()->moveTimeElement();
 
 	for (int i = 0; i < 4; ++i)
+	{
 		map->getGhost(i)->moveTimeElement();
+		map->getGhost(i)->strategyTimeElement();
+	}
 
 	setScene(map);
 	setBackgroundBrush(QBrush(Qt::black));

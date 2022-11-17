@@ -8,11 +8,43 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 {
 	[](Ghost* ghost)
 	{
-		if (abs(ghost->x - ghost->getMap()->getGhastPos().first) < SIZE + 1 && ghost->getMap()->getGhastPos().second - ghost->y < SIZE * 2 + 1)
+		if (ghost->x % SIZE == 0 && (ghost->y % SIZE) - 10 == 0)
 		{
-			if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ghost->y / SIZE)->getType() == OtherElement::tWall)
+			if (abs(ghost->x - ghost->getMap()->getGhastPos().first) <= 2 * SIZE && ghost->getMap()->getGhastPos().second - ghost->y <= 2 * SIZE)
 			{
-				ghost->setDir(GameElement::Right);
+				if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, ghost->y / SIZE)->getType() == OtherElement::tWall)
+				{
+					ghost->setDir(GameElement::Right);
+				}
+				else
+				{
+					ghost->setDir(GameElement::Up);
+				}
+			}
+			else
+			{
+				if (ghost->y - ghost->getMap()->getPacman()->y < 0)
+				{
+
+				}
+				else if (ghost->y - ghost->getMap()->getPacman()->y > 0)
+				{
+					
+				}
+				else
+				{
+					if (ghost->x - ghost->getMap()->getPacman()->x < 0)
+					{
+						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, ghost->y / SIZE)->getType() != OtherElement::tWall)
+						{
+							ghost->setDir(GameElement::Right);
+						}
+						else if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, (ghost->y / SIZE) + 1)->getType() != OtherElement::tWall)
+						{
+							ghost->setDir(GameElement::Down);
+						}
+					}
+				}
 			}
 		}
 	},

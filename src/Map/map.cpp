@@ -92,8 +92,8 @@ void Map::readMap(const char* puth)
             case 'g':
                 otherElement[mapPosY].emplace_back(new OtherElement(OtherElement::tBlank, blankPix));
 
+                ghost[numGhost].setPos(tmp_x, tmp_y);
                 addWidget(&ghost[numGhost])->setPos(tmp_x, tmp_y);
-                ghost[numGhost].setPos();
 
                 ++numGhost;
                 break;
@@ -131,5 +131,8 @@ void Map::updateMapDepenScore()
     pacman.moveTimer->setInterval(pacman.moveSpeedFromTime());
 
     for (int i = 0; i < 4; ++i)
+    {
         ghost[i].moveTimer->setInterval(ghost[i].moveSpeedFromTime());
+        ghost[i].strategyTimer->setInterval(ghost[i].moveSpeedFromTime());
+    }
 }

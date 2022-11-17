@@ -27,34 +27,69 @@ void GameElement::setPos(short newX, short newY)
 }
 void GameElement::move()
 {
-	short otherElX, otherElY;
-
-	switch (dir)
+	if (type == tPacman)
 	{
-	case GameElement::Up:
-		otherElX = (x + HALF_SIZE) / SIZE;
-		otherElY = (y - SIZE_SCORE) / SIZE;
+		short otherElX, otherElY;
 
-		searchTypeElement(otherElX, otherElY, x, y - 1);
-		break;
-	case GameElement::Down:
-		otherElX = (x + HALF_SIZE) / SIZE;
-		otherElY = ((y - SIZE_SCORE) / SIZE) + 1;
+		switch (dir)
+		{
+		case Up:
+			otherElX = (x + HALF_SIZE) / SIZE;
+			otherElY = (y - SIZE_SCORE) / SIZE;
 
-		searchTypeElement(otherElX, otherElY, x, y + 1);
-		break;
-	case GameElement::Right:
-		otherElX = (x / SIZE) + 1;
-		otherElY = (y - SIZE) / SIZE;
+			searchTypeElement(otherElX, otherElY, x, y - 1);
+			break;
+		case Down:
+			otherElX = (x + HALF_SIZE) / SIZE;
+			otherElY = ((y - SIZE_SCORE) / SIZE) + 1;
 
-		searchTypeElement(otherElX, otherElY, x + 1, y);
-		break;
-	case GameElement::Left:
-		otherElX = x / SIZE;
-		otherElY = (y - SIZE) / SIZE;
+			searchTypeElement(otherElX, otherElY, x, y + 1);
+			break;
+		case Right:
+			otherElX = (x / SIZE) + 1;
+			otherElY = (y - SIZE) / SIZE;
 
-		searchTypeElement(otherElX, otherElY, x - 1, y);
-		break;
+			searchTypeElement(otherElX, otherElY, x + 1, y);
+			break;
+		case Left:
+			otherElX = x / SIZE;
+			otherElY = (y - SIZE) / SIZE;
+
+			searchTypeElement(otherElX, otherElY, x - 1, y);
+			break;
+		}
+	}
+	else
+	{
+		switch (dir)
+		{
+		case Up:
+			QLabel::move(x, y--);
+			break;
+		case Down:
+			QLabel::move(x, y++);
+			break;
+		case Right:
+			if (map->getOneOtherEl((x / SIZE) + 1, (y - SIZE) / SIZE)->getType() == OtherElement::tTeleport)
+			{
+				QLabel::move(HALF_SIZE, y);
+			}
+			else
+			{
+				QLabel::move(x++, y);
+			}
+			break;
+		case Left:
+			if (map->getOneOtherEl((x / SIZE) + 1, (y - SIZE) / SIZE)->getType() == OtherElement::tTeleport)
+			{
+				QLabel::move(28 * SIZE - HALF_SIZE, y);
+			}
+			else
+			{
+				QLabel::move(x--, y);
+			}
+			break;
+		}
 	}
 }
 void GameElement::moveTimeElement()
@@ -74,7 +109,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		QLabel::move(newX, newY);
 		break;
 	case OtherElement::tBall:
-		if (checkDistToBall(newX, newY) && type == tPacman)
+		if (checkDistToBall(newX, newY))
 		{
 			map->setScore(Map::sBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
@@ -87,7 +122,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 
 		break;
 	case OtherElement::tPowerBall:
-		if (checkDistToBall(newX, newY) && type == tPacman)
+		if (checkDistToBall(newX, newY))
 		{
 			map->setScore(Map::sSuperBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());

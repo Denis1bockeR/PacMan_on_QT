@@ -14,7 +14,7 @@ Ghost::~Ghost()
 	delete statusTimer;
 }
 
-void Ghost::moveEvent(QMoveEvent* event)
+void Ghost::strategySetting() noexcept
 {
 	if (checkDistToPacman())
 	{
@@ -31,6 +31,12 @@ void Ghost::moveEvent(QMoveEvent* event)
 		}
 	}
 };
+void Ghost::strategyTimeElement()
+{
+	strategyTimer = new QTimer();
+	QObject::connect(strategyTimer, SIGNAL(timeout()), this, SLOT(strategySetting()));
+	strategyTimer->start(moveSpeedFromTime());
+}
 
 void Ghost::setColor(Color clr) noexcept
 {
@@ -81,5 +87,5 @@ void Ghost::setTexture(const char* puth) noexcept
 }
 bool Ghost::checkDistToPacman() noexcept 
 { 
-	return abs(x - map->getPacman()->x) < SIZE && abs(y - map->getPacman()->y) < SIZE ? true : false; 
+	return abs(x - map->getPacman()->x) > SIZE && abs(y - map->getPacman()->y) > SIZE ? true : false; 
 };
