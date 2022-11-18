@@ -5,9 +5,9 @@
 #include <QTimer>
 #include <QGraphicsView>
 
-#include "game.h"
+#include "gameWindow.h"
 
-Game::Game(const char* mapPuth, ushort h, ushort w)
+GameWindow::GameWindow(const char* mapPuth, ushort h, ushort w)
 {
 	setFocus();
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -17,8 +17,8 @@ Game::Game(const char* mapPuth, ushort h, ushort w)
 
 	for (int i = 0; i < 4; ++i)
 	{
-		map->getGhost(i)->moveTimeElement();
 		map->getGhost(i)->strategyTimeElement();
+		map->getGhost(i)->moveTimeElement();
 	}
 
 	setScene(map);
@@ -27,12 +27,12 @@ Game::Game(const char* mapPuth, ushort h, ushort w)
 	setFixedSize(size());
 	map->getPacman()->setFocus();
 }
-Game::~Game()
+GameWindow::~GameWindow()
 {
 	delete map;
 }
 
-void Game::writeRecords(short score) noexcept
+void GameWindow::writeRecords(short score) noexcept
 {
 	std::string s, file;
 	std::fstream recordFile("D:/Kursach/Pacman/records.txt", std::ios::app);

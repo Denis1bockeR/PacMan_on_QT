@@ -30,7 +30,7 @@ MainWindow::MainWindow()
 
 void MainWindow::openGame() noexcept
 {
-	Game* game = new Game("../Texture/map.txt", 20, 29);
+	GameWindow* game = new GameWindow("../Texture/map.txt", 20, 29);
 }
 void MainWindow::openRecordWindow() noexcept
 {

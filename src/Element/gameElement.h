@@ -16,7 +16,7 @@
 #define HALF_SIZE SIZE/2
 #define SIZE_SCORE 30
 
-static short MOVETIMER = 250;
+static short MOVETIMER = 100;
 
 class Map;
 
@@ -88,10 +88,13 @@ public:
 	void strategyTimeElement();
 
 	inline Map* getMap() noexcept { return map; };
+
+	inline void setPosCorner(std::pair<short, short> pos) noexcept { this->posCorner = pos; };
 private:
 	Color col;
 	Status status;
 	QPixmap tex;
+	std::pair<short, short> posCorner;
 
 	Dir nextDir;
 

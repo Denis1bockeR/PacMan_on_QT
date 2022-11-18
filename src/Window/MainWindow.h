@@ -5,7 +5,7 @@
 
 #include <QWidget>
 
-#include "../game.h"
+#include "../gameWindow.h"
 
 class MainWindow : public QWidget
 {

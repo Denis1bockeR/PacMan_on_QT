@@ -8,15 +8,19 @@
 #include "map.h"
 
 Map::Map(const char* puth, ushort h, ushort w)
-    : QGraphicsScene(),  height(h), weight(w), score(0), nBall(0)
+    : QGraphicsScene(), height(h), weight(w), score(0), nBall(0)
 {
     setMinimumRenderSize(20.0f);
 
 	ghost[0].setColor(Ghost::Red);
+    ghost[0].setPosCorner(std::pair<short, short>{18 * SIZE, SIZE_SCORE + SIZE});
 	ghost[1].setColor(Ghost::Yellow);
+    ghost[1].setPosCorner(std::pair<short, short>{SIZE, 27 * SIZE + SIZE_SCORE});
 	ghost[2].setColor(Ghost::Green);
+    ghost[2].setPosCorner(std::pair<short, short>{18 * SIZE, 27 * SIZE + SIZE_SCORE});
 	ghost[3].setColor(Ghost::Pink);
-	
+    ghost[3].setPosCorner(std::pair<short, short>{SIZE, SIZE_SCORE + SIZE});
+
     pacman.map = this;
     for (int i = 0; i < 4; i++)
     {
@@ -56,8 +60,8 @@ void Map::readMap(const char* puth)
         int mapPosX;
         for (mapPosX = 0; mapPosX < str.length(); ++mapPosX)
         {
-            int tmp_y = SIZE_SCORE + mapPosY * SIZE;
-            int tmp_x = mapPosX * SIZE;
+            short tmp_y = SIZE_SCORE + mapPosY * SIZE;
+            short tmp_x = mapPosX * SIZE;
 
             switch (str[mapPosX])
             {
@@ -101,6 +105,8 @@ void Map::readMap(const char* puth)
         }
         ++mapPosY;
     }
+
+    originalNumBall = nBall;
 }
 void Map::setOtherElAttribute(OtherElement::ElementType type, QPixmap pix, short mapPosX, short mapPosY, short x, short y) noexcept
 {

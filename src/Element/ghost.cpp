@@ -24,8 +24,17 @@ void Ghost::strategySetting() noexcept
 			ghostStrategy[col](this);
 			break;
 		case Ghost::Panic:
+			break;
+		}
+	}
+	else
+	{
+		switch (status)
+		{
+		case Ghost::Normal:
+			break;
+		case Ghost::Panic:
 			map->setScore(Map::sGhost);
-			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
 			MOVETIMER -= (MOVETIMER / (60 - Map::sGhost));
 			break;
 		}
@@ -87,5 +96,5 @@ void Ghost::setTexture(const char* puth) noexcept
 }
 bool Ghost::checkDistToPacman() noexcept 
 { 
-	return abs(x - map->getPacman()->x) > SIZE && abs(y - map->getPacman()->y) > SIZE ? true : false; 
+	return abs(x - map->getPacman()->x) > SIZE || abs(y - map->getPacman()->y) > SIZE ? true : false; 
 };

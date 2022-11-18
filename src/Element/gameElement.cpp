@@ -1,7 +1,7 @@
 #include <QGraphicsWidget>
 
 #include "../Map/map.h"
-#include "../game.h"
+#include "../gameWindow.h"
 
 GameElement::GameElement(ElementType type, float multiplySpeed)
 	: QLabel(), type(type), dir(Stop), multiplySpeed(multiplySpeed), x(0), y(0)
@@ -25,6 +25,8 @@ void GameElement::setPos(short newX, short newY)
 	x = newX;
 	y = newY;
 }
+
+//slot
 void GameElement::move()
 {
 	if (type == tPacman)
@@ -127,6 +129,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 			map->setScore(Map::sSuperBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
 			MOVETIMER -= (MOVETIMER / (60 - Map::sSuperBall));
+
 
 			for (int i = 0; i < 4; i++)
 				map->getGhost(i)->changeStatusPanic();

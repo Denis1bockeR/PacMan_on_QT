@@ -4,13 +4,13 @@
 #include "Map/map.h"
 #include <QGraphicsView>
 
-class Game : public QGraphicsView
+class GameWindow : public QGraphicsView
 {
 public:
 	enum Interval { GhosrNormalInterval = 10, GhostPannicInterval = 15, PacmanInterval = 10, PowerBallInterval = 10000 };
 
-	explicit Game(const char* mapPuth, ushort h, ushort w);
-	~Game();
+	explicit GameWindow(const char* mapPuth, ushort h, ushort w);
+	~GameWindow();
 
 	inline Map* getMap() { return map; };
 private:
