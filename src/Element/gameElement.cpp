@@ -115,7 +115,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		{
 			map->setScore(Map::sBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
-			MOVETIMER -= (MOVETIMER / (60 - Map::sBall));
+			MOVETIMER -= 3 * (MOVETIMER / (60 - Map::sBall));
 			map->nBall--;
 			map->checkEndGameWin();
 		}
@@ -129,7 +129,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 		{
 			map->setScore(Map::sSuperBall);
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
-			MOVETIMER -= (MOVETIMER / (60 - Map::sSuperBall));
+			MOVETIMER -= 3 * (MOVETIMER / (60 - Map::sSuperBall));
 
 
 			for (int i = 0; i < 4; i++)

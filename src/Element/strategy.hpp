@@ -475,153 +475,148 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 	//strategy weak ghost
 	[](Ghost* ghost)
 	{
-		if (abs(ghost->x - ghost->getMap()->getGhastPos().first) <= 2 * SIZE && ghost->y - ghost->getMap()->getGhastPos().second <= 2 * SIZE && ghost->y - ghost->getMap()->getGhastPos().second >= 0)
+		if (ghost->x % SIZE == 0 && (ghost->y % SIZE) - 10 == 0)
 		{
-			ghost->setDir(GameElement::Stop);
-		}
-		else 
-		{
-			if (pow(ghost->x - ghost->getMap()->getPacman()->x, 2) + pow(ghost->y - ghost->getMap()->getPacman()->y, 2) < 6400)
+			if (abs(ghost->x - ghost->getMap()->getGhastPos().first) <= 2 * SIZE && ghost->y - ghost->getMap()->getGhastPos().second <= 2 * SIZE && ghost->y - ghost->getMap()->getGhastPos().second >= 0)
 			{
-				if (ghost->y - ghost->getMap()->getPacman()->y < 0)
-				{
-					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
-					{
-						ghost->setDir(GameElement::Up);
-					}
-					else if (ghost->x - ghost->getMap()->getPacman()->x >= 0)
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Right);
-						}
-						else
-						{
-							ghost->setDir(GameElement::Left);
-						}
-					}
-					else
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Left);
-						}
-					}
-				}
-				else if (ghost->y - ghost->getMap()->getPacman()->y > 0)
-				{
-					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall)
-					{
-						ghost->setDir(GameElement::Down);
-					}
-					else if (ghost->x - ghost->getMap()->getPacman()->x >= 0)
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Right);
-						}
-						else
-						{
-							ghost->setDir(GameElement::Left);
-						}
-					}
-					else
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Left);
-						}
-					}
-				}
-				else
-				{
-					if (ghost->x - ghost->getMap()->getPacman()->x > 0)
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Right);
-						}
-					}
-					else
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Left);
-						}
-					}
-				}
+				ghost->setDir(GameElement::Stop);
 			}
 			else
 			{
-				if (ghost->y - ghost->getPosCorner()->second < 0)
+				if (pow(ghost->x - ghost->getMap()->getPacman()->x, 2) + pow(ghost->y - ghost->getMap()->getPacman()->y, 2) < 6400)
 				{
-					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+					if (ghost->y - ghost->getMap()->getPacman()->y < 0)
 					{
-						ghost->setDir(GameElement::Down);
-					}
-					else if (ghost->x - ghost->getPosCorner()->first >= 0)
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 						{
-							ghost->setDir(GameElement::Left);
+							ghost->setDir(GameElement::Up);
+						}
+						else if (ghost->x - ghost->getMap()->getPacman()->x >= 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Left);
+							}
 						}
 						else
 						{
-							ghost->setDir(GameElement::Right);
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
+						}
+					}
+					else if (ghost->y - ghost->getMap()->getPacman()->y > 0)
+					{
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall)
+						{
+							ghost->setDir(GameElement::Down);
+						}
+						else if (ghost->x - ghost->getMap()->getPacman()->x >= 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Left);
+							}
+						}
+						else
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
 						}
 					}
 					else
 					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+						if (ghost->x - ghost->getMap()->getPacman()->x > 0)
 						{
-							ghost->setDir(GameElement::Right);
-						}
-					}
-				}
-				else if (ghost->y - ghost->getPosCorner()->second > 0)
-				{
-					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall)
-					{
-						ghost->setDir(GameElement::Up);
-					}
-					else if (ghost->x - ghost->getPosCorner()->first >= 0)
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Left);
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
 						}
 						else
 						{
-							ghost->setDir(GameElement::Right);
-						}
-					}
-					else
-					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
-						{
-							ghost->setDir(GameElement::Right);
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
 						}
 					}
 				}
 				else
 				{
-					if (ghost->x - ghost->getPosCorner()->first > 0)
+					if (ghost->y - ghost->getPosCorner()->second < 0)
 					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 						{
-							ghost->setDir(GameElement::Left);
+							ghost->setDir(GameElement::Down);
+						}
+						else if (ghost->x - ghost->getPosCorner()->first >= 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
+						}
+						else
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
 						}
 					}
-					else if (ghost->x - ghost->getPosCorner()->first < 0)
+					else if (ghost->y - ghost->getPosCorner()->second > 0)
 					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall)
 						{
-							ghost->setDir(GameElement::Right);
+							ghost->setDir(GameElement::Up);
+						}
+						else if (ghost->x - ghost->getPosCorner()->first >= 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
+						}
+						else
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
 						}
 					}
 					else
 					{
-						ghost->setDir(GameElement::Stop);
+						if (ghost->x - ghost->getPosCorner()->first > 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Left);
+							}
+						}
+						else if (ghost->x - ghost->getPosCorner()->first < 0)
+						{
+							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
+						}
+						else
+						{
+							ghost->setDir(GameElement::Stop);
+						}
 					}
 				}
 			}

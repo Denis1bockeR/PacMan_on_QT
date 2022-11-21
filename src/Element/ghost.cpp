@@ -39,7 +39,7 @@ void Ghost::strategySetting() noexcept
 			break;
 		case Ghost::Panic:
 			map->setScore(Map::sGhost);
-			MOVETIMER -= (MOVETIMER / (60 - Map::sGhost));
+			MOVETIMER -= 3 * (MOVETIMER / (60 - Map::sGhost));
 			respuwn();
 			break;
 		}
