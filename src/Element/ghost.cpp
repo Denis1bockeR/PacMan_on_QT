@@ -1,6 +1,7 @@
 #include <functional>
 
 #include "../Map/map.h"
+#include "../gameWindow.h"
 #include "strategy.hpp"
 
 Ghost::Ghost()
@@ -33,6 +34,7 @@ void Ghost::strategySetting() noexcept
 		switch (status)
 		{
 		case Ghost::Normal:
+			map->window->writeRecords(map->getScore());
 			map->endGameLose();
 			break;
 		case Ghost::Panic:

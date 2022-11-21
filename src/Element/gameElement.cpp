@@ -8,7 +8,7 @@ GameElement::GameElement(ElementType type, float multiplySpeed)
 {
 	setFixedSize(SIZE, SIZE);
 
-	moveSpeedFromTime = [this]() ->int { return MOVETIMER * this->multiplySpeed; };
+	moveSpeedFromTime = [this]() ->int { return MOVETIMER / this->multiplySpeed; };
 }
 GameElement::~GameElement()
 {

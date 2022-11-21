@@ -20,6 +20,8 @@ class Map : public QGraphicsScene
 	Q_OBJECT
 
 public:
+	GameWindow* window;
+public:
 	enum Score { sGhost = 50, sBall = 10, sSuperBall = 30 };
 
 	Map(const char* puth, ushort h, ushort w);
@@ -45,8 +47,6 @@ public:
 private:
 	ushort weight, height, score, nBall, originalNumBall;
 	short  X_GHAST, Y_GHAST;
-
-	GameWindow* window;
 
 	QGraphicsTextItem* dispScore;
 	std::vector <std::vector<OtherElement*>> otherElement;

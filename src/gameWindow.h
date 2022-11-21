@@ -14,13 +14,13 @@ public:
 	~GameWindow();
 
 	void openEndWindow(std::string text) noexcept;
+	void writeRecords(short score) noexcept;
 
 	inline Map* getMap() { return map; };
 private:
 	Map* map;
 private:
 	void start() noexcept;
-	void writeRecords(short score) noexcept;
 };
 
 #endif // !_GAME_H_
