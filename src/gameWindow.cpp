@@ -1,9 +1,10 @@
-#include <fstream>
+﻿#include <fstream>
 #include <sstream>
 #include <string>
 
 #include <QTimer>
 #include <QGraphicsView>
+#include <QPushButton>
 
 #include "gameWindow.h"
 
@@ -35,16 +36,63 @@ GameWindow::~GameWindow()
 
 void GameWindow::openEndWindow(std::string text) noexcept
 {
+	map->getPacman()->getMoveTimer()->stop();
+
+	for (int i = 0; i < 4; ++i)
+	{
+		map->getGhost(i)->getStrategyTimer()->stop();
+		map->getGhost(i)->getMoveTimer()->stop();
+	}
+
+	hide();
+
 	QWidget* endWindow = new QWidget();
 	endWindow->setAttribute(Qt::WA_DeleteOnClose);
-	endWindow->setFixedSize(400, 300);
+	endWindow->setFixedSize(200, 150);
 
 	QLabel* winText = new QLabel(endWindow);
 	winText->setText(QString::fromStdString(text));
-	winText->move(150, 150);
+	winText->setStyleSheet("QLabel {color: red; font-size: 20px;}");
+	winText->move(30, 25);
+
+	endWindow->setStyleSheet("QPushButton {background-color: black; color: white; border-style: outset; border-color: blue; border-width: 2px; border-radius: 10px; fond: bold 14px;}");
+
+	QPushButton* restartButton = new QPushButton("Начать заново", endWindow);
+	restartButton->move(55, 60);
+	QPushButton* goMainMenuButton = new QPushButton("Главное меню", endWindow);
+	goMainMenuButton->move(55, 100);
+
+	QObject::connect(restartButton, &QPushButton::clicked,
+		[this, endWindow]()
+		{
+			delete this->map;
+			this->map = new Map("../Texture/map.txt", 20, 29);
+			this->setScene(this->map);
+
+			this->map->window = this;
+			this->map->getPacman()->moveTimeElement();
+
+			for (int i = 0; i < 4; ++i)
+			{
+				this->map->getGhost(i)->strategyTimeElement();
+				this->map->getGhost(i)->moveTimeElement();
+			}
+			this->show();
+
+			this->map->getPacman()->setFocus();
+
+			endWindow->close();
+		}
+	);
+	QObject::connect(goMainMenuButton, &QPushButton::clicked,
+		[this, endWindow]()
+		{
+			endWindow->close();
+			this->close();
+		}
+	);
 
 	endWindow->show();
-	close();
 }
 
 void GameWindow::writeRecords(short score) noexcept

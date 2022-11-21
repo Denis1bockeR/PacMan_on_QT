@@ -40,6 +40,7 @@ public:
 	inline constexpr Dir getDir() noexcept { return dir; };
 	inline void setDir(Dir dir) noexcept { this->dir = dir; };
 	inline constexpr Map* getMap() noexcept { return map; };
+	inline QTimer* getMoveTimer() noexcept { return moveTimer; };
 public slots:
 	void move();
 protected:
@@ -91,6 +92,7 @@ public:
 
 	inline void setPosCorner(std::pair<short, short> pos) noexcept { this->posCorner = pos; };
 	inline std::pair<short, short>* getPosCorner() noexcept { return &posCorner; };
+	inline QTimer* getStrategyTimer() noexcept { return strategyTimer; };
 private:
 	Color col;
 	Status status;
