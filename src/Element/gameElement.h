@@ -90,6 +90,7 @@ public:
 	inline Map* getMap() noexcept { return map; };
 
 	inline void setPosCorner(std::pair<short, short> pos) noexcept { this->posCorner = pos; };
+	inline std::pair<short, short>* getPosCorner() noexcept { return &posCorner; };
 private:
 	Color col;
 	Status status;

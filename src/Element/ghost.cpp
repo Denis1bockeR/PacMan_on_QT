@@ -24,6 +24,7 @@ void Ghost::strategySetting() noexcept
 			ghostStrategy[col](this);
 			break;
 		case Ghost::Panic:
+			ghostStrategy[4](this);
 			break;
 		}
 	}
@@ -32,6 +33,7 @@ void Ghost::strategySetting() noexcept
 		switch (status)
 		{
 		case Ghost::Normal:
+			map->endGameLose();
 			break;
 		case Ghost::Panic:
 			map->setScore(Map::sGhost);

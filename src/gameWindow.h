@@ -1,8 +1,9 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include "Map/map.h"
 #include <QGraphicsView>
+
+#include "Map/map.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -11,6 +12,8 @@ public:
 
 	explicit GameWindow(const char* mapPuth, ushort h, ushort w);
 	~GameWindow();
+
+	void openEndWindow(std::string text) noexcept;
 
 	inline Map* getMap() { return map; };
 private:

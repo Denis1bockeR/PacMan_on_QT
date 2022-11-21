@@ -117,6 +117,7 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 			map->getOneOtherEl(x, y)->updateType(OtherElement::tBlank, QPixmap());
 			MOVETIMER -= (MOVETIMER / (60 - Map::sBall));
 			map->nBall--;
+			map->checkEndGameWin();
 		}
 
 		QLabel::move(newX, newY);
@@ -134,6 +135,8 @@ void GameElement::searchTypeElement(short x, short y, short newX, short newY)
 			for (int i = 0; i < 4; i++)
 				map->getGhost(i)->changeStatusPanic();
 			map->nBall--;
+			map->checkEndGameWin();
+			map->checkEndGameWin();
 		}
 
 		QLabel::move(newX, newY);

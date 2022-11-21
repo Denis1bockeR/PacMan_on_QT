@@ -1,11 +1,11 @@
-#include <fstream>
+﻿#include <fstream>
 #include <string>
 #include <iostream>
 
 #include <QGraphicsProxyWidget>
 #include <QTimer>
 
-#include "map.h"
+#include "../gameWindow.h"
 
 Map::Map(const char* puth, ushort h, ushort w)
     : QGraphicsScene(), height(h), weight(w), score(0), nBall(0)
@@ -141,4 +141,14 @@ void Map::updateMapDepenScore()
         ghost[i].moveTimer->setInterval(ghost[i].moveSpeedFromTime());
         ghost[i].strategyTimer->setInterval(ghost[i].moveSpeedFromTime());
     }
+}
+
+void Map::checkEndGameWin() noexcept
+{
+    if (nBall == 0)
+        window->openEndWindow("Вы выиграли");
+}
+void Map::endGameLose() noexcept
+{
+    window->openEndWindow("Вы проиграли");
 }

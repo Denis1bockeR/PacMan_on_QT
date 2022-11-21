@@ -13,6 +13,8 @@
 
 #define SIZE_SCORE 30
 
+class GameWindow;
+
 class Map : public QGraphicsScene
 {
 	Q_OBJECT
@@ -24,6 +26,9 @@ public:
 	~Map();
 
 	void setScore(Score score) noexcept;
+
+	void checkEndGameWin() noexcept;
+	void endGameLose() noexcept;
 
 	inline int getSizeOtherEl() noexcept { return otherElement.size(); };
 	inline OtherElement* getOneOtherEl(short x, short y) const noexcept { return otherElement[y][x]; };
@@ -41,12 +46,15 @@ private:
 	ushort weight, height, score, nBall, originalNumBall;
 	short  X_GHAST, Y_GHAST;
 
+	GameWindow* window;
+
 	QGraphicsTextItem* dispScore;
 	std::vector <std::vector<OtherElement*>> otherElement;
 	Pacman pacman;
 	std::array<Ghost, 4> ghost;
 
 	friend class GameElement;
+	friend class GameWindow;
 private:
 	void readMap(const char* puth);
 	void setOtherElAttribute(OtherElement::ElementType type, QPixmap pix, short mapPosX, short mapPosY, short x, short y) noexcept;

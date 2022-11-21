@@ -16,7 +16,6 @@ public:
 	~MainWindow() = default;
 private:
 	void setStyleLabelSetting(QLabel& label, short y) noexcept;
-	void setStyleKeyLabelSetting(QLabel& label, short y) noexcept;
 private slots:
 	void openGame() noexcept;
 	void openRecordWindow() noexcept;

@@ -13,6 +13,7 @@ GameWindow::GameWindow(const char* mapPuth, ushort h, ushort w)
 	setAttribute(Qt::WA_DeleteOnClose);
 
 	map = new Map(mapPuth, h, w);
+	map->window = this;
 	map->getPacman()->moveTimeElement();
 
 	for (int i = 0; i < 4; ++i)
@@ -30,6 +31,20 @@ GameWindow::GameWindow(const char* mapPuth, ushort h, ushort w)
 GameWindow::~GameWindow()
 {
 	delete map;
+}
+
+void GameWindow::openEndWindow(std::string text) noexcept
+{
+	QWidget* endWindow = new QWidget();
+	endWindow->setAttribute(Qt::WA_DeleteOnClose);
+	endWindow->setFixedSize(400, 300);
+
+	QLabel* winText = new QLabel(endWindow);
+	winText->setText(QString::fromStdString(text));
+	winText->move(150, 150);
+
+	endWindow->show();
+	close();
 }
 
 void GameWindow::writeRecords(short score) noexcept

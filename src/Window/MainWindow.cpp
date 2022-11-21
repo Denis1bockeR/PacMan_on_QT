@@ -60,10 +60,3 @@ void MainWindow::setStyleLabelSetting(QLabel& label, short y) noexcept
 	label.setAlignment(Qt::AlignCenter);
 	label.setStyleSheet("QLabel {background-color: black; color: white; fond: bold 14px;}");
 }
-void MainWindow::setStyleKeyLabelSetting(QLabel& label, short y) noexcept
-{
-	label.setFixedSize(60, 20);
-	label.move(110, y);
-	label.setAlignment(Qt::AlignCenter);
-	label.setStyleSheet("QLabel {background-color: white; color: black; fond: bold 14px;}");
-};
