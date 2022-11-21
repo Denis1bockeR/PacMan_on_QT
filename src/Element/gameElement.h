@@ -105,6 +105,7 @@ private:
 	void setTexture(const char* puth) noexcept;
 	bool checkDistToPacman() noexcept;
 	
+	void respuwn() noexcept;
 private slots:
 	void changeStatusNormal() noexcept;
 	void strategySetting() noexcept;

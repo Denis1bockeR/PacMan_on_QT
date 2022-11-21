@@ -38,6 +38,7 @@ void Ghost::strategySetting() noexcept
 		case Ghost::Panic:
 			map->setScore(Map::sGhost);
 			MOVETIMER -= (MOVETIMER / (60 - Map::sGhost));
+			respuwn();
 			break;
 		}
 	}
@@ -72,6 +73,13 @@ void Ghost::setColor(Color clr) noexcept
 	}
 
 }
+
+void Ghost::respuwn() noexcept
+{
+	QLabel::move(map->getGhastPos().first, map->getGhastPos().second + SIZE);
+	changeStatusNormal();
+}
+
 void Ghost::changeStatusPanic() noexcept
 {
 	this->status = Panic;
