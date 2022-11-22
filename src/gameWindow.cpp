@@ -98,7 +98,7 @@ void GameWindow::openEndWindow(std::string text) noexcept
 void GameWindow::writeRecords(short score) noexcept
 {
 	std::string s, file;
-	std::fstream recordFile("D:/Kursach/Pacman/records.txt");
+	std::fstream recordFile("../records.txt");
 
 	int i;
 	for (i = 0; i < 5; i++)
