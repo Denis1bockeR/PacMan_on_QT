@@ -180,7 +180,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 					}
 					else
 					{
-						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 						{
 							ghost->setDir(GameElement::Right);
 						}
@@ -188,7 +188,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 				}
 				else if (ghost->y - (ghost->getMap()->getPacman()->y - (ghost->getMap()->getGhost(0)->y - ghost->getMap()->getPacman()->y)) > 0)
 				{
-					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+					if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 					{
 						ghost->setDir(GameElement::Up);
 					}
@@ -213,7 +213,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 				}
 				else
 				{
-					if (ghost->x - (ghost->getMap()->getPacman()->x = (ghost->getMap()->getGhost(0)->x - ghost->getMap()->getPacman()->x)) > 0)
+					if (ghost->x - (ghost->getMap()->getPacman()->x - (ghost->getMap()->getGhost(0)->x - ghost->getMap()->getPacman()->x)) > 0)
 					{
 						if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 						{
@@ -260,7 +260,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 				case GameElement::Up:
 					if (ghost->y - ghost->getMap()->getPacman()->y + 2 * SIZE >= 0)
 					{
-						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 						{
 							ghost->setDir(GameElement::Up);
 						}
@@ -285,7 +285,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 					}
 					else
 					{
-						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall)
 						{
 							ghost->setDir(GameElement::Down);
 						}
@@ -370,7 +370,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 						}
 						else if (ghost->y - ghost->getMap()->getPacman()->y >= 0)
 						{
-							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 							{
 								ghost->setDir(GameElement::Up);
 							}
@@ -395,7 +395,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 						}
 						else if (ghost->y - ghost->getMap()->getPacman()->y >= 0)
 						{
-							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 							{
 								ghost->setDir(GameElement::Up);
 							}
@@ -422,7 +422,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 						}
 						else if (ghost->y - ghost->getMap()->getPacman()->y >= 0)
 						{
-							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 							{
 								ghost->setDir(GameElement::Up);
 							}
@@ -447,7 +447,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 						}
 						else if (ghost->y - ghost->getMap()->getPacman()->y >= 0)
 						{
-							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
+							if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) - 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 							{
 								ghost->setDir(GameElement::Up);
 							}
