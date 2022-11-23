@@ -13,11 +13,11 @@ Map::Map(const char* puth, ushort h, ushort w)
     setMinimumRenderSize(20.0f);
 
 	ghost[0].setColor(Ghost::Red);
-    ghost[0].setPosCorner(std::pair<short, short>{18 * SIZE, SIZE_SCORE + SIZE});
+    ghost[0].setPosCorner(std::pair<short, short>{27 * SIZE, SIZE_SCORE + SIZE});
 	ghost[1].setColor(Ghost::Yellow);
-    ghost[1].setPosCorner(std::pair<short, short>{SIZE, 27 * SIZE + SIZE_SCORE});
+    ghost[1].setPosCorner(std::pair<short, short>{SIZE, 18 * SIZE + SIZE_SCORE});
 	ghost[2].setColor(Ghost::Green);
-    ghost[2].setPosCorner(std::pair<short, short>{18 * SIZE, 27 * SIZE + SIZE_SCORE});
+    ghost[2].setPosCorner(std::pair<short, short>{27 * SIZE, 18 * SIZE + SIZE_SCORE});
 	ghost[3].setColor(Ghost::Pink);
     ghost[3].setPosCorner(std::pair<short, short>{SIZE, SIZE_SCORE + SIZE});
 

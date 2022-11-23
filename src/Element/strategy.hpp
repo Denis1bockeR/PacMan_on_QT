@@ -512,7 +512,7 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 					}
 					else if (ghost->y - ghost->getMap()->getPacman()->y > 0)
 					{
-						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall)
+						if (ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tWall && ghost->getMap()->getOneOtherEl(ghost->x / SIZE, ((ghost->y - SIZE_SCORE) / SIZE) + 1)->getType() != OtherElement::tGates)
 						{
 							ghost->setDir(GameElement::Down);
 						}
