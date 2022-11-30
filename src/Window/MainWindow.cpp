@@ -33,7 +33,13 @@ MainWindow::MainWindow()
 
 void MainWindow::openGame() noexcept
 {
-	GameWindow* game = new GameWindow("../Texture/map.txt", 20, 29);
+	GameWindow* gameWindow = new GameWindow("../Texture/map.txt", 20, 29);
+
+	hide();
+
+	QObject::connect(gameWindow, &QGraphicsView::destroyed, [this]() 
+		{this->show(); }
+	);
 }
 void MainWindow::openRecordWindow() noexcept
 {
@@ -54,6 +60,12 @@ void MainWindow::openRecordWindow() noexcept
 	textRecord->setReadOnly(true);
 
 	recordWiget->show();
+
+	hide();
+
+	QObject::connect(recordWiget, &QWidget::destroyed, [this]() 
+		{this->show(); }
+	);
 }
 void MainWindow::openHelpWindow() noexcept
 {
@@ -70,7 +82,7 @@ void MainWindow::openHelpWindow() noexcept
 	helpProgramWindow->setFixedSize(80, 20);
 
 	QObject::connect(helpAuthorWindow, &QPushButton::clicked,
-		[]()
+		[helpWindow]()
 		{
 			QWidget* authorHelpWindow = new QWidget();
 			authorHelpWindow->setAttribute(Qt::WA_DeleteOnClose);
@@ -82,10 +94,14 @@ void MainWindow::openHelpWindow() noexcept
 			authorHelpWindow->setFixedSize(380, 40);
 
 			authorHelpWindow->show();
+
+			helpWindow->hide();
+
+			QObject::connect(authorHelpWindow, &QWidget::destroyed, [helpWindow]() {helpWindow->show(); });
 		}
 	);
 	QObject::connect(helpProgramWindow, &QPushButton::clicked,
-		[]()
+		[helpWindow]()
 		{
 			QWidget* programHelpWindow = new QWidget();
 			programHelpWindow->setAttribute(Qt::WA_DeleteOnClose);
@@ -97,10 +113,18 @@ void MainWindow::openHelpWindow() noexcept
 			programHelpWindow->setFixedSize(735, 60);
 
 			programHelpWindow->show();
+
+			helpWindow->hide();
+
+			QObject::connect(programHelpWindow, &QWidget::destroyed, [helpWindow]() {helpWindow->show(); });
 		}
 	);
 
 	helpWindow->show();
+
+	hide();
+
+	QObject::connect(helpWindow, &QGraphicsView::destroyed, [this]() {this->show(); });
 }
 
 void MainWindow::setStyleLabelSetting(QLabel& label, short y) noexcept
@@ -112,10 +136,6 @@ void MainWindow::setStyleLabelSetting(QLabel& label, short y) noexcept
 }
 void MainWindow::keyPressEvent(QKeyEvent * event)
 {
-	switch (event->nativeVirtualKey())
-	{
-	case Qt::Key_F1:
+	if (event->nativeVirtualKey() == Qt::Key_BracketLeft || event->nativeVirtualKey() == Qt::Key_BraceLeft || event->nativeVirtualKey() == 0x70 || event->nativeVirtualKey() == Qt::Key_F1)
 		openHelpWindow();
-		break;
-	}
 };

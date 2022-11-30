@@ -19,8 +19,6 @@ public:
 	inline Map* getMap() { return map; };
 private:
 	Map* map;
-private:
-	void start() noexcept;
 };
 
 #endif // !_GAME_H_

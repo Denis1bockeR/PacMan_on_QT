@@ -24,40 +24,52 @@ void Pacman::keyPressEvent(QKeyEvent* event)
 	switch (event->nativeVirtualKey())
 	{
 	case Qt::Key_D:
-		dir = Right;
-		loadingAnim("../Texture/rPacman.gif");
+		if (dir != Right)
+		{
+			dir = Right;
+			loadingAnim("../Texture/rPacman.gif");
 
-		otherElX = (x / SIZE) + 1;
-		otherElY = (y - SIZE) / SIZE;
+			otherElX = (x / SIZE) + 1;
+			otherElY = (y - SIZE) / SIZE;
 
-		searchTypeElement(otherElX, otherElY, x + 1, y);
+			searchTypeElement(otherElX, otherElY, x + 1, y);
+		}
 		break;
 	case Qt::Key_A:
-		dir = Left;
-		loadingAnim("../Texture/lPacman.gif");
+		if (dir != Left)
+		{
+			dir = Left;
+			loadingAnim("../Texture/lPacman.gif");
 
-		otherElX = x / SIZE;
-		otherElY = (y - SIZE) / SIZE;
+			otherElX = x / SIZE;
+			otherElY = (y - SIZE) / SIZE;
 
-		searchTypeElement(otherElX, otherElY, x - 1, y);
+			searchTypeElement(otherElX, otherElY, x - 1, y);
+		}
 		break;
 	case Qt::Key_W:
-		dir = Up;
-		loadingAnim("../Texture/uPacman.gif");
+		if (dir != Up)
+		{
+			dir = Up;
+			loadingAnim("../Texture/uPacman.gif");
 
-		otherElX = (x + HALF_SIZE) / SIZE;
-		otherElY = (y - SIZE_SCORE) / SIZE;
+			otherElX = (x + HALF_SIZE) / SIZE;
+			otherElY = (y - SIZE_SCORE) / SIZE;
 
-		searchTypeElement(otherElX, otherElY, x, y - 1);
+			searchTypeElement(otherElX, otherElY, x, y - 1);
+		}
 		break;
 	case Qt::Key_S:
-		dir = Down;
-		loadingAnim("../Texture/dPacman.gif");
+		if (dir != Down)
+		{
+			dir = Down;
+			loadingAnim("../Texture/dPacman.gif");
 
-		otherElX = (x + HALF_SIZE) / SIZE;
-		otherElY = ((y - SIZE_SCORE) / SIZE) + 1;
+			otherElX = (x + HALF_SIZE) / SIZE;
+			otherElY = ((y - SIZE_SCORE) / SIZE) + 1;
 
-		searchTypeElement(otherElX, otherElY, x, y + 1);
+			searchTypeElement(otherElX, otherElY, x, y + 1);
+		}
 		break;
 	}
 }

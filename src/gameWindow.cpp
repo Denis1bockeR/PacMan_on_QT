@@ -89,6 +89,7 @@ void GameWindow::openEndWindow(std::string text) noexcept
 		{
 			endWindow->close();
 			this->close();
+			this->destroyed();
 		}
 	);
 
@@ -131,6 +132,6 @@ void GameWindow::writeRecords(short score) noexcept
 	}
 
 	recordFile.close();
-	recordFile.open("D:/Kursach/Pacman/records.txt", std::ios::out | std::ios::trunc);
+	recordFile.open("../records.txt", std::ios::out | std::ios::trunc);
 	recordFile << file;
 }

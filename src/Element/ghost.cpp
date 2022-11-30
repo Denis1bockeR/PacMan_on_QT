@@ -5,7 +5,7 @@
 #include "strategy.hpp"
 
 Ghost::Ghost()
-	: GameElement(tGhost, 0.9f), status(Normal)
+	: GameElement(tGhost, 0.8f), status(Normal)
 {
 	statusTimer = new QTimer();
 	QObject::connect(statusTimer, SIGNAL(timeout()), this, SLOT(changeStatusNormal()));
@@ -89,7 +89,7 @@ void Ghost::changeStatusPanic() noexcept
 
 	setPixmap(QPixmap("../Texture/weakGhost.png"));
 	type = tWeakGhost;
-	multiplySpeed = 0.8f;
+	multiplySpeed = 0.6f;
 
 	statusTimer->start(STATUSTIMER);
 }
@@ -99,7 +99,7 @@ void Ghost::changeStatusNormal() noexcept
 
 	setPixmap(tex);
 	type = tGhost;
-	multiplySpeed = 0.9f;
+	multiplySpeed = 0.8f;
 }
 
 void Ghost::setTexture(const char* puth) noexcept
