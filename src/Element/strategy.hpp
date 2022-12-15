@@ -497,9 +497,13 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 							{
 								ghost->setDir(GameElement::Right);
 							}
-							else
+							else if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 							{
 								ghost->setDir(GameElement::Left);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Up);
 							}
 						}
 						else
@@ -507,6 +511,14 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 							{
 								ghost->setDir(GameElement::Left);
+							}
+							else if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Up);
 							}
 						}
 					}
@@ -522,9 +534,13 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 							{
 								ghost->setDir(GameElement::Right);
 							}
-							else
+							else if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 							{
 								ghost->setDir(GameElement::Left);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Up);
 							}
 						}
 						else
@@ -532,6 +548,14 @@ std::array <std::function<void(Ghost* ghost)>, 5> ghostStrategy
 							if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) - 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
 							{
 								ghost->setDir(GameElement::Left);
+							}
+							else if (ghost->getMap()->getOneOtherEl((ghost->x / SIZE) + 1, (ghost->y - SIZE_SCORE) / SIZE)->getType() != OtherElement::tWall)
+							{
+								ghost->setDir(GameElement::Right);
+							}
+							else
+							{
+								ghost->setDir(GameElement::Up);
 							}
 						}
 					}

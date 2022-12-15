@@ -136,6 +136,6 @@ void MainWindow::setStyleLabelSetting(QLabel& label, short y) noexcept
 }
 void MainWindow::keyPressEvent(QKeyEvent * event)
 {
-	if (event->nativeVirtualKey() == Qt::Key_BracketLeft || event->nativeVirtualKey() == Qt::Key_BraceLeft || event->nativeVirtualKey() == 0x70 || event->nativeVirtualKey() == Qt::Key_F1)
+	if (event->nativeVirtualKey() == Qt::Key_BracketLeft || event->nativeVirtualKey() == Qt::Key_BraceLeft || event->nativeVirtualKey() == 0x70 || event->nativeVirtualKey() == 0xAD || event->nativeVirtualKey() == Qt::Key_F1)
 		openHelpWindow();
 };
